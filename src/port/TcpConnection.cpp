@@ -182,7 +182,7 @@ void TcpConnection::shutdown()
 {
     if (state_ == kConnected)
     {
-        setState(kDisconnected);
+        setState(kDisconnecting);
         loop_->runInLoop(boost::bind(&TcpConnection::shutdownInLoop, this));
     }
 }
@@ -217,7 +217,7 @@ void TcpConnection::connectDestroyed()
     loop_->assertInLoopThread();
     if (state_ == kConnected)
     {
-        setState(kDisconnected);
+        setState(kDisconnecting);
         channel_->disableAll();
 
         connectionCallback_(shared_from_this());
@@ -291,7 +291,7 @@ void TcpConnection::handleClose()
 {
     loop_->assertInLoopThread();
     LOG_TRACE << "fd = " << channel_->fd() << " state = " << state_;
-    assert(state_ == kConnected || state_ == kDisconnected);
+    assert(state_ == kConnected || state_ == kDisconnecting);
     setState(kDisconnected);
     channel_->disableAll();
 

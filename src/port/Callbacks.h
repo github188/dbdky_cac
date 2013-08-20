@@ -32,7 +32,7 @@ namespace dbdky
 	typedef boost::function<void (const TcpConnectionPtr&)> ConnectionCallback;
 	typedef boost::function<void (const TcpConnectionPtr&)> CloseCallback;
 	typedef boost::function<void (const TcpConnectionPtr&)> WriteCompleteCallback;
-	typedef boost::function<void (const TcpConnectionPtr&)> HighWaterMarkCallback;
+	typedef boost::function<void (const TcpConnectionPtr&, size_t)> HighWaterMarkCallback;
 	typedef boost::function<void (const TcpConnectionPtr&,
 			Buffer*,
 			Timestamp)> MessageCallback;
