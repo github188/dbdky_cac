@@ -12,6 +12,8 @@ set(port_SRCS
   PollPoller.cpp
   InetAddress.cpp
   SocketsOps.cpp
+  TcpConnection.cpp
+  Socket.cpp
   )
 
 add_library(port ${port_SRCS})

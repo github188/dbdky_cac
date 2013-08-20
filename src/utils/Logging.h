@@ -117,7 +117,7 @@ namespace dbdky
     const char* strerror_tl(int savedErrno);
 
 #define CHECK_NOTNULL(val) \
-    ::dbdky::CheckNotNull(__FILE__, __LINE__, "'" $val "' Must be non NULL", (val))
+    ::dbdky::CheckNotNull(__FILE__, __LINE__, "'" #val "' Must be non NULL", (val))
 
     template<typename T>
     T* CheckNotNull(Logger::SourceFile file, int line, const char* names, T* ptr)

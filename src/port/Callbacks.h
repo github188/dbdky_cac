@@ -26,22 +26,21 @@ namespace dbdky
     namespace port
     {
         class Buffer;
-        class ComEntity;
-        typedef boost::shared_ptr<ComEntity> ComEntityPtr;
+        class TcpConnection;
+        typedef boost::shared_ptr<TcpConnection> TcpConnectionPtr;
         typedef boost::function<void()> TimerCallback;
-        typedef boost::function<void(const ComEntityPtr&)> ConnectionCallback;
-        typedef boost::function<void(const ComEntityPtr&)> CloseCallback;
-        typedef boost::function<void(const ComEntityPtr&)> WriteCompleteCallback;
-        //typedef boost::function<void<const ComEntityPtr&, size_t)> HighWaterMardCallback;
+	typedef boost::function<void (const TcpConnectionPtr&)> ConnectionCallback;
+	typedef boost::function<void (const TcpConnectionPtr&)> CloseCallback;
+	typedef boost::function<void (const TcpConnectionPtr&)> WriteCompleteCallback;
+	typedef boost::function<void (const TcpConnectionPtr&)> HighWaterMarkCallback;
+	typedef boost::function<void (const TcpConnectionPtr&,
+			Buffer*,
+			Timestamp)> MessageCallback;
 
-        typedef boost::function<void(const ComEntityPtr&,
-				Buffer*,
-				Timestamp)> MessageCallback;
-
-        void defaultConnectionCallback(const ComEntityPtr& conn);
-        void defaultMessageCallback(const ComEntityPtr& conn,
-			Buffer* buffer,
-			Timestamp receiveTime);
+        void defaultConnectionCallback(const TcpConnectionPtr& conn);
+        void defaultMessageCallback(const TcpConnectionPtr& conn,
+                        Buffer* buffer,
+                        Timestamp receiveTime);
     }
 }
 
