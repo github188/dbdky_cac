@@ -6,8 +6,8 @@
 
 namespace dbdky
 {
-    namespace port
-    {
+namespace port
+{
 #if __GNUC_MINOR__ >= 6
 #pragma GCC diagnostic push
 #endif
@@ -50,8 +50,7 @@ namespace dbdky
 #pragma GCC diagnostic error "-Wconversion"
 #pragma GCC diagnostic error "-Wold-style-cast"
 #endif
-    }
 }
-
+}
 
 #endif

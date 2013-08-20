@@ -10,6 +10,8 @@ set(port_SRCS
   DefaultPoller.cpp
   EventLoopThread.cpp
   PollPoller.cpp
+  InetAddress.cpp
+  SocketsOps.cpp
   )
 
 add_library(port ${port_SRCS})

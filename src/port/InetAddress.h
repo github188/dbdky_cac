@@ -4,7 +4,7 @@
 #include <utils/copyable.h>
 #include <utils/StringPiece.h>
 
-#include <netinet/io.h>
+#include <netinet/in.h>
 
 namespace dbdky
 {

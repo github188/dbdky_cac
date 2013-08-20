@@ -40,6 +40,7 @@ void setNonBlockingAndCloseOnExec(int sockfd)
 
     (void)ret;
 }
+}
 
 int sockets::createNonblockingOrDie()
 {
@@ -86,7 +87,7 @@ int sockets::accept(int sockfd, struct sockaddr_in* addr)
     int connfd = ::accept(sockfd, sockaddr_cast(addr), &addrlen);
     setNonBlockingAndCloseOnExec(connfd); 
 #else
-    int connfd = ::accept4(sockfd, sockadd_cast(addr), &addrlen, SOCK_NONBLOCK | SOCK_CLOEXEC);
+    int connfd = ::accept4(sockfd, sockaddr_cast(addr), &addrlen, SOCK_NONBLOCK | SOCK_CLOEXEC);
 #endif
     if (connfd < 0)
     {
@@ -170,7 +171,7 @@ void sockets::toIpPort(char* buf, size_t size, const struct sockaddr_in& addr)
     snprintf(buf, size, "%s:%u", host, port);
 }
 
-void sockets::toIp(char* buf, sizeof size, const struct sockaddr_in& addr)
+void sockets::toIp(char* buf, size_t size, const struct sockaddr_in& addr)
 {
     assert(size >= INET_ADDRSTRLEN);
     ::inet_ntop(AF_INET, &addr.sin_addr, buf, static_cast<socklen_t>(size));
@@ -234,5 +235,4 @@ bool sockets::isSelfConnect(int sockfd)
     struct sockaddr_in peeraddr = getPeerAddr(sockfd);
     return localaddr.sin_port == peeraddr.sin_port
         && localaddr.sin_addr.s_addr == peeraddr.sin_addr.s_addr;
-}
 }
