@@ -14,6 +14,10 @@ set(port_SRCS
   SocketsOps.cpp
   TcpConnection.cpp
   Socket.cpp
+  Acceptor.cpp
+  TcpServer.cpp
+  TcpClient.cpp
+  Connector.cpp 
   )
 
 add_library(port ${port_SRCS})
