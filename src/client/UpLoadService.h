@@ -12,6 +12,7 @@
 #include <port/TcpConnection.h>
 
 #include <port/EventLoop.h>
+#include <port/EventLoopThreadPool.h>
 
 using namespace dbdky;
 using namespace dbdky::port;
@@ -51,9 +52,13 @@ private:
     EventLoop* loop_;
     TimerId systemTimer_;
     TimerId heartBeatTimer_;
+    TimerId uploadMoniDataTimer_;
+
     const string name_;
 
     mutable MutexLock mutex_;
+
+    boost::scoped_ptr<EventLoopThreadPool> threadPool_;
 
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
@@ -61,6 +66,9 @@ private:
 
     void onSystemTimer();
     void onHeartbeatTimer();
+    void onUploadMoniDataTimer();
+
+    void uploadMoniDataTask();
 
     TcpClient client_;
 

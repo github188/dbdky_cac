@@ -17,6 +17,7 @@ public:
     InetAddress& getProxyAddress() const;
     uint16_t getSystemTick() const;
     uint32_t getHeartbeatTick() const;
+    uint32_t getUploadMoniDataTick() const;
 private:
     ConfUtil();
 
@@ -24,6 +25,7 @@ private:
     static boost::shared_ptr<ConfUtil> instance_;
     uint16_t systemTick_;
     uint32_t heartBeatTick_;
+    uint32_t uploadMoniDataTick_;
 };
 }
 }

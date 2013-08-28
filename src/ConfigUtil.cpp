@@ -16,7 +16,8 @@ boost::shared_ptr<ConfUtil> ConfUtil::getInstance()
 
 ConfUtil::ConfUtil()
   : systemTick_(1),
-    heartBeatTick_(2)
+    heartBeatTick_(2),
+    uploadMoniDataTick_(3)
 {
 }
 
@@ -34,5 +35,10 @@ uint16_t ConfUtil::getSystemTick() const
 uint32_t ConfUtil::getHeartbeatTick() const
 {
     return heartBeatTick_;
+}
+
+uint32_t ConfUtil::getUploadMoniDataTick() const
+{
+    return uploadMoniDataTick_;
 }
 
