@@ -16,7 +16,6 @@
 using namespace dbdky;
 using namespace dbdky::port;
 
-//class EventLoop;
 
 namespace dbdky
 {
