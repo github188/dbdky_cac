@@ -53,6 +53,10 @@ include_directories(./src)
 include_directories(./src/port)
 include_directories(./src/utils)
 
+include_directories(${THIRD_PARTY_DIR}/mysql-connector-c++-1.1.3/driver)
+include_directories(${THIRD_PARTY_DIR}/mysql-connector-c++-1.1.3)
+include_directories(${THIRD_PARTY_DIR}/mysql-connector-c++-1.1.3/cppconn)
+
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
 

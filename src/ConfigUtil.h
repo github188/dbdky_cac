@@ -5,6 +5,10 @@
 #include <boost/noncopyable.hpp>
 #include <port/InetAddress.h>
 
+#include <string>
+
+using std::string;
+
 namespace dbdky
 {
 namespace port
@@ -18,6 +22,32 @@ public:
     uint16_t getSystemTick() const;
     uint32_t getHeartbeatTick() const;
     uint32_t getUploadMoniDataTick() const;
+ 
+    string getDBPath() const
+    {
+        return dbPath_;
+    }
+
+    string getDBUser() const
+    {
+        return dbUser_;
+    }
+
+    string getDBPasswd() const
+    {
+        return dbPasswd_;
+    }
+
+    string getDBName() const
+    {
+        return dbName_;
+    }
+
+    string getCacId() const
+    {
+        return cacid_;
+    }
+
 private:
     ConfUtil();
 
@@ -26,6 +56,11 @@ private:
     uint16_t systemTick_;
     uint32_t heartBeatTick_;
     uint32_t uploadMoniDataTick_;
+    string dbPath_;
+    string dbUser_;
+    string dbPasswd_;
+    string dbName_;
+    string cacid_;
 };
 }
 }

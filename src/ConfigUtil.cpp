@@ -17,7 +17,12 @@ boost::shared_ptr<ConfUtil> ConfUtil::getInstance()
 ConfUtil::ConfUtil()
   : systemTick_(1),
     heartBeatTick_(2),
-    uploadMoniDataTick_(3)
+    uploadMoniDataTick_(3),
+    dbPath_("tcp://127.0.0.1:3306"),
+    dbUser_("root"),
+    dbPasswd_("kevinLike$"),
+    dbName_("omsdb"),
+    cacid_("22M00000022376016")
 {
 }
 

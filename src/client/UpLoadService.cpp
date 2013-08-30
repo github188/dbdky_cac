@@ -16,7 +16,11 @@ namespace cac_client
       : loop_(loop),
         name_(name),
         client_(loop, proxyAddr, name),
-        threadPool_(new EventLoopThreadPool(loop))
+        threadPool_(new EventLoopThreadPool(loop)),
+        dbhelper_(new DBHelper(ConfUtil::getInstance()->getDBPath(),
+                             ConfUtil::getInstance()->getDBUser(),
+                             ConfUtil::getInstance()->getDBPasswd(),
+                             ConfUtil::getInstance()->getDBName()))
     {
         client_.setConnectionCallback(
             boost::bind(&UpLoadService::onConnection, this, _1));
@@ -72,6 +76,54 @@ namespace cac_client
     void UpLoadService::uploadMoniDataTask()
     {
         LOG_INFO << "uploadMoniDataTask";
+
+        if (!dbhelper_->isConnected())
+        {
+            if (!dbhelper_->connect())
+            {
+                LOG_ERROR << "Connect database fail.";
+                return;
+            }
+        }
+
+        boost::shared_ptr<ResultSet> result(dbhelper_->query("select * from bd_cd"));
+
+        if (!result.get())
+        {
+            LOG_INFO << "Cannot get data from database";
+            return;
+        }
+
+        try
+        {
+            string sTmp;
+            sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+            sTmp += "<request><monitordata cacid=\"" + ConfUtil::getInstance()->getCacId();
+            sTmp += "\" datanodenum=\"init_rowcount\">";
+
+            while (result->next())
+            {
+		string sObjid = result->getString("OBJID");
+        	string sLinkedDevice = result->getString("LinkedDevice");
+        	string sDeviceCode = result->getString("DeviceCode");
+        	string sPhase = result->getString("Phase");
+        	string sJCLXBM = result->getString("JCLXBM");
+        	string sBDZMC = result->getString("BDZMC");
+        	string sSSZT = result->getString("SSZT");
+        	string sBJCSBMC = result->getString("BJCSBMC");
+        	string sJCLXMC = result->getString("JCLXMC");
+        	string sZIEDID = result->getString("ZIEDID");
+        	string sIEDID = result->getString("IEDID");
+
+		LOG_INFO << "OBJID:" << sObjid;
+                
+
+            }
+        }
+        catch (std::exception& e)
+        {
+            LOG_ERROR << e.what();
+        }
     }
  
     void UpLoadService::onConnection(const TcpConnectionPtr& conn)

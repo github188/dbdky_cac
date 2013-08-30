@@ -5,6 +5,8 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
+#include <boost/scoped_ptr.hpp>
+
 #include <port/Callbacks.h>
 #include <port/Buffer.h>
 #include <utils/Timestamp.h>
@@ -13,6 +15,9 @@
 
 #include <port/EventLoop.h>
 #include <port/EventLoopThreadPool.h>
+
+#include <dbhelper/dbhelper.h>
+
 
 using namespace dbdky;
 using namespace dbdky::port;
@@ -55,10 +60,12 @@ private:
     TimerId uploadMoniDataTimer_;
 
     const string name_;
+    const string cacid_;
 
     mutable MutexLock mutex_;
 
     boost::scoped_ptr<EventLoopThreadPool> threadPool_;
+    boost::scoped_ptr<DBHelper> dbhelper_;
 
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
