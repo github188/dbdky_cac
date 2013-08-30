@@ -60,17 +60,19 @@ namespace cac_client
 
     void UpLoadService::onHeartbeatTimer()
     {
-    //    LOG_INFO << "onHeartbeatTimer";
+        loop_->queueInLoop(
+            boost::bind(&UpLoadService::uploadHeartbeatTask, this)); 
     }
    
     void UpLoadService::onUploadMoniDataTimer()
     {
-        LOG_INFO << "onUploadMoniDataTimer";
-        //loop_->runInLoop(boost::bind(&UpLoadService::uploadMoniDataTask, this));
-        //EventLoop* ioLoop = threadPool_->getNextLoop();
-        //ioLoop->runInLoop(boost::bind(&UpLoadService::uploadMoniDataTask, this));
         loop_->queueInLoop(
             boost::bind(&UpLoadService::uploadMoniDataTask, this));
+    }
+
+    void UpLoadService::uploadHeartbeatTask()
+    {
+        LOG_INFO << "uploadHeartbeatTask"; 
     }
 
     void UpLoadService::uploadMoniDataTask()
@@ -115,8 +117,11 @@ namespace cac_client
         	string sZIEDID = result->getString("ZIEDID");
         	string sIEDID = result->getString("IEDID");
 
-		LOG_INFO << "OBJID:" << sObjid;
-                
+	//	LOG_INFO << "OBJID:" << sObjid;
+                LOG_INFO << "*********" << Timestamp::now().toFormattedString(); 
+                //string sQuery = "select * from " + sJCLXBM
+                //        + " where cdid = " + sOBJID
+                //        + " and AcquisitionTime > " + +";";
 
             }
         }

@@ -76,13 +76,13 @@ private:
     void onUploadMoniDataTimer();
 
     void uploadMoniDataTask();
+    void uploadHeartbeatTask();
 
     TcpClient client_;
 
     void onConnection(const TcpConnectionPtr&);
     void onMessage(const TcpConnectionPtr&, Buffer*, Timestamp);
     void onWriteComplete(const TcpConnectionPtr&);
-
 };
 }
 }
