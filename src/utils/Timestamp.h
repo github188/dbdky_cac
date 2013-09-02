@@ -25,6 +25,7 @@ namespace dbdky
 
         string toString() const;
         string toFormattedString() const;
+        string toFormattedStringDash() const;
         
         bool valid() const { return microSecondsSinceEpoch_ > 0; }
 

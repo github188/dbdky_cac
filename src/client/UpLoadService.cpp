@@ -1,6 +1,7 @@
 #include "UpLoadService.h"
 #include "ConfigUtil.h"
 #include <boost/bind.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #include <utils/Logging.h>
 #include <utils/Timestamp.h>
@@ -117,12 +118,28 @@ namespace cac_client
         	string sZIEDID = result->getString("ZIEDID");
         	string sIEDID = result->getString("IEDID");
 
-	//	LOG_INFO << "OBJID:" << sObjid;
-                LOG_INFO << "*********" << Timestamp::now().toFormattedString(); 
-                //string sQuery = "select * from " + sJCLXBM
-                //        + " where cdid = " + sOBJID
-                //        + " and AcquisitionTime > " + +";";
+		std::transform(sJCLXBM.begin(), sJCLXBM.end(), sJCLXBM.begin(), ::tolower);
+                LOG_INFO << "*******" + Timestamp::now().toFormattedStringDash();
+                string sQuery = "select * from " + sJCLXBM
+                        + " where cdid = " + sObjid
+                        + " and AcquisitionTime > " + "'" + Timestamp::now().toFormattedStringDash() + "';";
 
+
+                if (!dbhelper_->isConnected())
+                {
+                    dbhelper_->connect();
+                }
+
+                boost::shared_ptr<ResultSet> tmpresult = 
+                    dbhelper_->query(sQuery.c_str());
+
+                if (!tmpresult.get())
+                {
+                    LOG_INFO << "*** Query return empty";
+                }
+
+                
+                                       
             }
         }
         catch (std::exception& e)
