@@ -22,7 +22,8 @@ ConfUtil::ConfUtil()
     dbUser_("root"),
     dbPasswd_("kevinLike$"),
     dbName_("omsdb"),
-    cacid_("22M00000022376016")
+    cacid_("22M00000022376016"),
+    localIP_("127.0.0.1")
 {
 }
 

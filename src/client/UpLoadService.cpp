@@ -2,6 +2,8 @@
 #include "ConfigUtil.h"
 #include <boost/bind.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <utils/Logging.h>
 #include <utils/Timestamp.h>
@@ -73,11 +75,59 @@ namespace cac_client
     void UpLoadService::uploadHeartbeatTask()
     {
         LOG_INFO << "uploadHeartbeatTask"; 
+        
+        string sTmp;
+        string sJczzid;
+
+        if (!dbhelper_->isConnected())
+        {
+            if (!dbhelper_->connect())
+            {
+                LOG_ERROR << "Connect database fail.";
+                return;
+            }
+        }
+
+        boost::shared_ptr<ResultSet> result(dbhelper_->query("select * from bd_cd"));
+
+        sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+        sTmp += "<request><monitordata cac id=\"" + ConfUtil::getInstance()->getCacId();
+        sTmp += "<ip>" + ConfUtil::getInstance()->getLocalIP() + "</ip>";
+        sTmp += "<curtime>" + Timestamp::now().toFormattedStringDash() + "</curtime>";
+        sTmp += "<operationtemperature>15.00</operationtemperature></cac>";
+        sTmp += "<sensors>";
+    
+        try
+        {
+            while (result->next())
+            {
+                sJczzid = result->getString("DeviceCode");
+                sTmp += "<sensor id = \"" + sJczzid + "\">";
+                sTmp += "<status>NORMAL</status>";
+                sTmp += "<operationtemperature>15.00</operationtemperature>";
+                sTmp += "</sensor>"; 
+            }
+        }
+        catch (std::exception& e)
+        {
+            LOG_ERROR << e.what();
+        }
+
+        sTmp += "</sensors></request>";
+
+        LOG_INFO << ">>>" << sTmp;    
+        //TODO:
+
+
+
     }
 
     void UpLoadService::uploadMoniDataTask()
     {
         LOG_INFO << "uploadMoniDataTask";
+        int iCount = 0;
+
+        string sTmp;
 
         if (!dbhelper_->isConnected())
         {
@@ -98,7 +148,6 @@ namespace cac_client
 
         try
         {
-            string sTmp;
             sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
             sTmp += "<request><monitordata cacid=\"" + ConfUtil::getInstance()->getCacId();
             sTmp += "\" datanodenum=\"init_rowcount\">";
@@ -147,18 +196,37 @@ namespace cac_client
                         sTmp += "<attr name = \"Phase\" value=\"" + sPhase + "\" alarm=\"FALSE\" />";
 			
  			sTmp += makeNodeXml(sJCLXBM, result);
-                        sTmp += "</monitordata></request>";
-                    }
-                }
 
-                
-                                       
+                        sTmp += "</attrs></datanode>";
+                    }
+
+                    tmpresult->last();
+                    iCount += tmpresult->getRow();
+                }
             }
         }
         catch (std::exception& e)
         {
             LOG_ERROR << e.what();
         }
+
+        sTmp += "</monitordata></request>";
+
+        string sICount;
+	try
+        {
+            sICount = boost::lexical_cast<string>(iCount);
+        }
+        catch (boost::bad_lexical_cast& e)
+        {
+            sICount += "0";
+        }
+
+        boost::replace_first(sTmp, "init_rowcount", sICount);
+        LOG_INFO << "***sTmp: " << sTmp;
+       
+        //TODO:
+          
     }
  
     void UpLoadService::onConnection(const TcpConnectionPtr& conn)

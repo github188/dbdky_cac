@@ -48,6 +48,11 @@ public:
         return cacid_;
     }
 
+    string getLocalIP() const
+    {
+        return localIP_;
+    }
+
 private:
     ConfUtil();
 
@@ -61,6 +66,7 @@ private:
     string dbPasswd_;
     string dbName_;
     string cacid_;
+    string localIP_;
 };
 }
 }
