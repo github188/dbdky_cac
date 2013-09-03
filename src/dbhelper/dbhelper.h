@@ -4,6 +4,7 @@
 #include <string>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/function.hpp>
 
 #include <utils/Mutex.h>
 

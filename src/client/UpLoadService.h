@@ -30,6 +30,8 @@ namespace cac_client
 class UpLoadService : boost::noncopyable
 {
 public:
+    typedef boost::shared_ptr<ResultSet> ResultSetPtr;
+    typedef boost::function <string (const ResultSetPtr&)> NodeXmlMaker;
     void start();
     void stop();
     explicit UpLoadService(EventLoop* loop,  
@@ -83,6 +85,22 @@ private:
     void onConnection(const TcpConnectionPtr&);
     void onMessage(const TcpConnectionPtr&, Buffer*, Timestamp);
     void onWriteComplete(const TcpConnectionPtr&);
+
+    string makeNodeXml(const string&, const ResultSetPtr&);
+
+    string XmlNodeMaker_yzrj(const ResultSetPtr&);
+    string XmlNodeMaker_jbfd(const ResultSetPtr&);
+    string XmlNodeMaker_txxl(const ResultSetPtr&);
+    string XmlNodeMaker_sf6(const ResultSetPtr&);
+    string XmlNodeMaker_sf6ws(const ResultSetPtr&);
+    string XmlNodeMaker_ws(const ResultSetPtr&);
+    string XmlNodeMaker_dcyw(const ResultSetPtr&);
+    string XmlNodeMaker_rzcw(const ResultSetPtr&);
+    string XmlNodeMaker_blqjyjc(const ResultSetPtr&);
+    string XmlNodeMaker_drjc(const ResultSetPtr&);
+    string XmlNodeMaker_fhdlwave(const ResultSetPtr&);
+    string XmlNodeMaker_fhzxqwave(const ResultSetPtr&);
+    string XmlNodeMaker_dlqjbfd(const ResultSetPtr&);
 };
 }
 }
