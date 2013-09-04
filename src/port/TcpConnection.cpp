@@ -217,7 +217,7 @@ void TcpConnection::connectDestroyed()
     loop_->assertInLoopThread();
     if (state_ == kConnected)
     {
-        setState(kDisconnecting);
+        setState(kDisconnected);
         channel_->disableAll();
 
         connectionCallback_(shared_from_this());
@@ -277,7 +277,7 @@ void TcpConnection::handleWrite()
         }
         else
         {
-            LOG_SYSERR << "TcpConnnection::handleWrite";
+            LOG_SYSERR << "TcpConnection::handleWrite";
         }
     }
     else

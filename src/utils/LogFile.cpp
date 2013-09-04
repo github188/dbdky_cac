@@ -42,8 +42,9 @@ public:
             }
 
             n += x;
-            writtenBytes_ += len;
+            remain = len - n;
         }
+		writtenBytes_ += len;
     }
 
     void flush()
@@ -65,7 +66,10 @@ private:
     size_t writtenBytes_;
 };
 
-LogFile::LogFile(const string& basename, size_t rollSize, bool threadSafe, int flushInterval)
+LogFile::LogFile(const string& basename, 
+				size_t rollSize, 
+				bool threadSafe, 
+				int flushInterval)
     : basename_(basename),
       rollSize_(rollSize),
       flushInterval_(flushInterval),

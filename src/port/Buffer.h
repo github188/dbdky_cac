@@ -110,7 +110,7 @@ namespace dbdky
                 }
             }
 
-            void retrieveUtil(const char* end)
+            void retrieveUntil(const char* end)
             {
                 assert(peek() <= end);
                 assert(end <= beginWrite());
@@ -140,10 +140,10 @@ namespace dbdky
 
             string retrieveAllAsString()
             {
-                return retriveAsString(readableBytes());
+                return retrieveAsString(readableBytes());
             }
 
-            string retriveAsString(size_t len)
+            string retrieveAsString(size_t len)
             {
                 assert(len <= readableBytes());
                 string result(peek(), len);
@@ -292,7 +292,7 @@ namespace dbdky
                 swap(other);
             }
 
-            ssize_t readFd(int fd, int* saveErrno);
+            ssize_t readFd(int fd, int* savedErrno);
 
         private:
             char* begin()

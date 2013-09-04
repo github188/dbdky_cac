@@ -146,7 +146,7 @@ void TcpClient::removeConnection(const TcpConnectionPtr& conn)
     loop_->queueInLoop(boost::bind(&TcpConnection::connectDestroyed, conn));
     if (retry_ && connect_)
     {
-        LOG_INFO << "TcpClient::conncet[" << name_ << "] - Reconnection to " 
+        LOG_INFO << "TcpClient::conncet[" << name_ << "] - Reconnecting to " 
         << connector_->serverAddress().toIpPort();
         connector_->restart();
     }

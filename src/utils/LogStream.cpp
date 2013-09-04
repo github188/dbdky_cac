@@ -199,7 +199,7 @@ template Fmt::Fmt(const char* fmt, unsigned int);
 template Fmt::Fmt(const char* fmt, long);
 template Fmt::Fmt(const char* fmt, unsigned long);
 template Fmt::Fmt(const char* fmt, long long);
-template Fmt::Fmt(const char* ftm, unsigned long long);
+template Fmt::Fmt(const char* fmt, unsigned long long);
 
 template Fmt::Fmt(const char* fmt, float);
 template Fmt::Fmt(const char* fmt, double);

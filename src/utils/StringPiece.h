@@ -12,7 +12,7 @@ namespace dbdky
 
     class StringPiece
     {
-    public:
+    private:
         const char* ptr_;
         int length_;
 

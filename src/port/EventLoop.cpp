@@ -43,7 +43,7 @@ namespace
         }
     };
 
-    #pragma GCC diagnostic err "-Wold-style-cast"
+    #pragma GCC diagnostic error "-Wold-style-cast"
 
     IgnoreSigPipe initObj;
 }
@@ -69,10 +69,10 @@ EventLoop::EventLoop()
     LOG_DEBUG << "EventLoop created" << this << "in thread" << threadId_;
     if (t_loopInThisThread)
     {
-/*
+
         LOG_FATAL << "Another EventLoop" << t_loopInThisThread
 		<< "exists in this thread" << threadId_;
-*/
+
     }
     else
     {
@@ -206,21 +206,31 @@ void EventLoop::removeChannel(Channel* channel)
 
 void EventLoop::abortNotInLoopThread()
 {
-/*
-    LOG_FATAL << "EventLoop::abortNotInLoopThread - EventLoop " < this
+
+    LOG_FATAL << "EventLoop::abortNotInLoopThread - EventLoop " << this
 	<< " was created in threadId_ = " << threadId_
         << ", current thread id = " << CurrentThread::tid();
-*/
+
 }
 
 void EventLoop::wakeup()
 {
-    //TODO:
+    uint64_t one = 1;
+	ssize_t n = write(wakeupFd_, &one, sizeof one);
+    if (n != sizeof one)
+    {
+	    LOG_ERROR << "EventLoop::wakeup() writes " << n << " bytes instead of 8";
+    }
 }
 
 void EventLoop::handleRead()
 {
-    //TODO:
+    uint64_t one = 1;
+	ssize_t n = read(wakeupFd_, &one, sizeof one);
+	if (n != sizeof one)
+	{
+	    LOG_ERROR << "EventLoop::handleRead() reads " << n << " bytes instead of 8";
+	}
 }
 
 void EventLoop::doPendingFunctors()

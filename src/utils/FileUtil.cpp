@@ -121,11 +121,27 @@ int FileUtil::SmallFile::readToBuffer(int* size)
     return err;
 }
 
+#if 0
 template int FileUtil::readFile(StringPiece filename,
 				int maxSize,
 				string* content,
 				int64_t*, int64_t*, int64_t*);
 
-template int FileUtil::SmallFile::readToString(int maxSize,
-				string* content,
-				int64_t*, int64_t*, int64_t*);
+template int FileUtil::SmallFile::readToString(
+    int maxSize,
+    string* content,
+    int64_t*, int64_t*, int64_t*);
+#endif 
+
+#ifndef MUDUO_STD_STRING
+template int FileUtil::readFile(StringPiece filename,
+                                int maxSize,
+                                std::string* content,
+                                int64_t*, int64_t*, int64_t*);
+
+template int FileUtil::SmallFile::readToString(
+    int maxSize,
+    std::string* content,
+    int64_t*, int64_t*, int64_t*);
+#endif
+

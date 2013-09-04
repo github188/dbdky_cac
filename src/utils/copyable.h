@@ -3,10 +3,10 @@
 
 namespace dbdky
 {
-    class copyable
-    {
-    };
-}
+class copyable
+{
+};
+};
 
 
 #endif

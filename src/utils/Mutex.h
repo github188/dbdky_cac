@@ -40,12 +40,12 @@ namespace dbdky
         void lock()
         {
             pthread_mutex_lock(&mutex_);
-            holder_ = CurrentThread::tid();
+            assignHolder();
         }
 
         void unlock()
         {
-            holder_ = 0;
+            unassignHolder();
             pthread_mutex_unlock(&mutex_);
         }
 
@@ -55,6 +55,35 @@ namespace dbdky
         }
 
     private:
+     friend class Condition;
+	 
+	 class UnassignGuard : boost::noncopyable
+	 {
+	 
+	   public:
+	     UnassignGuard(MutexLock& owner)
+		   : owner_(owner)
+		 {
+		   owner_.unassignHolder();
+		 }
+		 
+		 ~UnassignGuard()
+		 {
+	       owner_.assignHolder();
+		 }
+
+       private:
+	     MutexLock& owner_;
+	 };
+	 
+	 void unassignHolder()
+	 {
+	   holder_ = 0;
+	 }
+	 void assignHolder()
+	 {
+	   holder_ = CurrentThread::tid();
+	 }
         pthread_mutex_t mutex_;
         pid_t holder_;
     };
@@ -78,6 +107,6 @@ namespace dbdky
     };
 }
 
-#define MutexLockGuard(x) err "Missing guard object name"
+#define MutexLockGuard(x) error "Missing guard object name"
 
 #endif

@@ -11,7 +11,7 @@
 // INADDR_ANY use(type)value casting.
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 static const in_addr_t kInaddrAny = INADDR_ANY;
-#pragma GCC diagnostic err "-Wold-style-cast"
+#pragma GCC diagnostic error "-Wold-style-cast"
 
 using namespace dbdky;
 using namespace dbdky::port;

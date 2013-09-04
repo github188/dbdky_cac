@@ -39,7 +39,7 @@ namespace dbdky
             typedef std::set<ActiveTimer> ActiveTimerSet;
 
             void addTimerInLoop(Timer* timer);
-            void cancelInLoop(TimerId timeId);
+            void cancelInLoop(TimerId timerId);
             void handleRead();
             std::vector<Entry> getExpired(Timestamp now);
             void reset(const std::vector<Entry>& expired, Timestamp now);

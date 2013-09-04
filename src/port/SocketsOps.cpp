@@ -28,7 +28,7 @@ SA* sockaddr_cast(struct sockaddr_in* addr)
     return static_cast<SA*>(implicit_cast<void*>(addr));
 }
 
-void setNonBlockingAndCloseOnExec(int sockfd)
+void setNonBlockAndCloseOnExec(int sockfd)
 {
     int flags = ::fcntl(sockfd, F_GETFL, 0);
     flags |= O_NONBLOCK;
@@ -64,7 +64,7 @@ int sockets::createNonblockingOrDie()
 
 void sockets::bindOrDie(int sockfd, const struct sockaddr_in& addr)
 {
-    int ret = ::bind(sockfd, sockaddr_cast(&addr), sizeof addr);
+    int ret = ::bind(sockfd, sockaddr_cast(&addr), static_cast<socklen_t>(sizeof addr));
     if (ret < 0)
     {
         LOG_SYSFATAL << "sockets::bindOrDie";
@@ -82,12 +82,13 @@ void sockets::listenOrDie(int sockfd)
 
 int sockets::accept(int sockfd, struct sockaddr_in* addr)
 {
-    socklen_t addrlen = sizeof *addr;
+    socklen_t addrlen = static_cast<socklen_t>(sizeof *addr);
 #if VALGRIND
     int connfd = ::accept(sockfd, sockaddr_cast(addr), &addrlen);
-    setNonBlockingAndCloseOnExec(connfd); 
+    setNonBlockAndCloseOnExec(connfd); 
 #else
-    int connfd = ::accept4(sockfd, sockaddr_cast(addr), &addrlen, SOCK_NONBLOCK | SOCK_CLOEXEC);
+    int connfd = ::accept4(sockfd, sockaddr_cast(addr), 
+	&addrlen, SOCK_NONBLOCK | SOCK_CLOEXEC);
 #endif
     if (connfd < 0)
     {
@@ -129,7 +130,7 @@ int sockets::accept(int sockfd, struct sockaddr_in* addr)
 
 int sockets::connect(int sockfd, const struct sockaddr_in& addr)
 {
-    return ::connect(sockfd, sockaddr_cast(&addr), sizeof addr);
+    return ::connect(sockfd, sockaddr_cast(&addr), static_cast<socklen_t>(sizeof addr));
 }
 
 ssize_t sockets::read(int sockfd, void* buf, size_t count)
@@ -163,7 +164,8 @@ void sockets::shutdownWrite(int sockfd)
     }
 }
 
-void sockets::toIpPort(char* buf, size_t size, const struct sockaddr_in& addr)
+void sockets::toIpPort(char* buf, size_t size, 
+const struct sockaddr_in& addr)
 {
     char host[INET_ADDRSTRLEN] = "INVALID";
     toIp(host, sizeof host, addr);
@@ -171,13 +173,15 @@ void sockets::toIpPort(char* buf, size_t size, const struct sockaddr_in& addr)
     snprintf(buf, size, "%s:%u", host, port);
 }
 
-void sockets::toIp(char* buf, size_t size, const struct sockaddr_in& addr)
+void sockets::toIp(char* buf, size_t size, 
+const struct sockaddr_in& addr)
 {
     assert(size >= INET_ADDRSTRLEN);
     ::inet_ntop(AF_INET, &addr.sin_addr, buf, static_cast<socklen_t>(size));
 }
 
-void sockets::fromIpPort(const char* ip, uint16_t port, struct sockaddr_in* addr)
+void sockets::fromIpPort(const char* ip, uint16_t port, 
+struct sockaddr_in* addr)
 {
     addr->sin_family = AF_INET;
     addr->sin_port = hostToNetwork16(port);
@@ -190,7 +194,7 @@ void sockets::fromIpPort(const char* ip, uint16_t port, struct sockaddr_in* addr
 int sockets::getSocketError(int sockfd)
 {
     int optval;
-    socklen_t optlen = sizeof optval;
+    socklen_t optlen = static_cast<socklen_t>(sizeof optval);
     
     if (::getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &optval, &optlen) < 0)
     {
@@ -206,7 +210,7 @@ struct sockaddr_in sockets::getLocalAddr(int sockfd)
 {
     struct sockaddr_in localaddr;
     bzero(&localaddr, sizeof localaddr);
-    socklen_t addrlen = sizeof(localaddr);
+    socklen_t addrlen = static_cast<socklen_t>(sizeof localaddr);
     if (::getsockname(sockfd, sockaddr_cast(&localaddr), &addrlen) < 0)
     {
         LOG_SYSERR << "sockets::getLocalAddr";
@@ -219,7 +223,7 @@ struct sockaddr_in sockets::getPeerAddr(int sockfd)
 {
     struct sockaddr_in peeraddr;
     bzero(&peeraddr, sizeof peeraddr);
-    socklen_t addrlen = sizeof(peeraddr);
+    socklen_t addrlen = static_cast<socklen_t>(sizeof peeraddr);
 
     if (::getpeername(sockfd, sockaddr_cast(&peeraddr), &addrlen) < 0)
     {

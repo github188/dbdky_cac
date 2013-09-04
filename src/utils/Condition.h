@@ -24,6 +24,7 @@ namespace dbdky
         
         void wait()
         {
+			MutexLock::UnassignGuard ug(mutex_);
             pthread_cond_wait(&pcond_, mutex_.getPthreadMutex());
         }
 

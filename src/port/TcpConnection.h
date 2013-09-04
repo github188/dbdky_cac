@@ -26,7 +26,11 @@ class TcpConnection : boost::noncopyable,
         public boost::enable_shared_from_this<TcpConnection>
 {
 public:
-    TcpConnection(EventLoop* loop, const string& name, int sockfd, const InetAddress& localAddr, const InetAddress& peerAddr);
+    TcpConnection(EventLoop* loop, 
+	const string& name, 
+	int sockfd, 
+	const InetAddress& localAddr, 
+	const InetAddress& peerAddr);
     ~TcpConnection();
     EventLoop* getLoop() const
     {

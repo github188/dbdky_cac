@@ -140,7 +140,10 @@ string Channel::reventsToString() const
     {
         oss << "RDHUP ";
     }
-
+    if (revents_ & POLLERR)
+    {
+	    oss << "ERR";
+    }
     if (revents_ & POLLNVAL)
     {
         oss << "NVAL ";

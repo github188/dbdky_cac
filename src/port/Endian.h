@@ -44,7 +44,7 @@ namespace port
             return be16toh(net16);
         }
 
-#if __GNUC_MMINOR__ >= 6
+#if __GNUC_MINOR__ >= 6
 #pragma GCC diagnostic pop
 #else
 #pragma GCC diagnostic error "-Wconversion"

@@ -33,7 +33,7 @@ void ThreadPool::start(int numThreads)
     for (int i = 0; i < numThreads; i++)
     {
         char id[32];
-        snprintf(id, sizeof id, "%d", i),
+        snprintf(id, sizeof id, "%d", i);
         threads_.push_back(new dbdky::Thread(
             boost::bind(&ThreadPool::runInThread, this), name_ + id));
         threads_[i].start();

@@ -9,29 +9,30 @@
 
 namespace dbdky
 {
-    namespace port
-    {
-        class Poller : boost::noncopyable
-        {
-        public:
-            typedef std::vector<Channel*> ChannelList;
+namespace port
+{
+class Channel;
+class Poller : boost::noncopyable
+{
+public:
+  typedef std::vector<Channel*> ChannelList;
     
-            Poller(EventLoop* loop);
-            virtual ~Poller();
+  Poller(EventLoop* loop);
+  virtual ~Poller();
    
-            virtual Timestamp poll(int timeoutMs, ChannelList* activeChannels) = 0;
-            virtual void updateChannel(Channel* channel) = 0;
-            virtual void removeChannel(Channel* channel) = 0;
-            static Poller* newDefaultPoller(EventLoop* loop);
-            void assertInLoopThread()
-            {
-                ownerLoop_->assertInLoopThread();
-            }
+  virtual Timestamp poll(int timeoutMs, ChannelList* activeChannels) = 0;
+  virtual void updateChannel(Channel* channel) = 0;
+  virtual void removeChannel(Channel* channel) = 0;
+  static Poller* newDefaultPoller(EventLoop* loop);
+  void assertInLoopThread()
+  {
+    ownerLoop_->assertInLoopThread();
+  }
 
-        private:
-            EventLoop* ownerLoop_;
-        };
-    }
+  private:
+    EventLoop* ownerLoop_;
+};
+}
 }
 
 

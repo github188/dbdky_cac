@@ -13,7 +13,7 @@ namespace dbdky
     public:
         static T& instance()
         {
-            pthread_once(&ponce_, &singleton::init);
+            pthread_once(&ponce_, &Singleton::init);
             return *value_;
         }
 
@@ -30,6 +30,7 @@ namespace dbdky
         static void destroy()
         {
             typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+			T_must_be_complete_type dummy; (void) dummy;
             delete value_;
         }
 

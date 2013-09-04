@@ -35,6 +35,7 @@ namespace dbdky
         {
             assert(obj == t_value_);
             typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+			T_must_be_complete_type_dummy; (void) dummy;
             delete t_value_;
             t_value_ = 0;
         }
@@ -49,13 +50,13 @@ namespace dbdky
 
             ~Deleter()
             {
-                pthread_key_deleter(pkey_);
+                pthread_key_delete(pkey_);
             }
 
-            void set(T* newobj)
+            void set(T* newObj)
             {
                 assert(pthread_getspecific(pkey_) == NULL);
-                pthread_setspecifiic(pkey_, newObj);
+                pthread_setspecific(pkey_, newObj);
             }
 
             pthread_key_t pkey_;
