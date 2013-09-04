@@ -49,6 +49,8 @@ namespace cac_client
             boost::bind(&UpLoadService::onHeartbeatTimer, this));
         uploadMoniDataTimer_ = loop_->runEvery(ConfUtil::getInstance()->getUploadMoniDataTick(),
             boost::bind(&UpLoadService::onUploadMoniDataTimer, this));
+
+            connect();
     }
 
     void UpLoadService::stop()
@@ -91,7 +93,7 @@ namespace cac_client
         boost::shared_ptr<ResultSet> result(dbhelper_->query("select * from bd_cd"));
 
         sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-        sTmp += "<request><monitordata cac id=\"" + ConfUtil::getInstance()->getCacId();
+        sTmp += "<request type=\"heartbeat\"><monitordata cac id=\"" + ConfUtil::getInstance()->getCacId();
         sTmp += "<ip>" + ConfUtil::getInstance()->getLocalIP() + "</ip>";
         sTmp += "<curtime>" + Timestamp::now().toFormattedStringDash() + "</curtime>";
         sTmp += "<operationtemperature>15.00</operationtemperature></cac>";
@@ -115,9 +117,10 @@ namespace cac_client
 
         sTmp += "</sensors></request>";
 
-        LOG_INFO << ">>>" << sTmp;    
         //TODO:
-
+        //connect();
+        write(sTmp);
+        disconnect();
 
 
     }
@@ -149,7 +152,7 @@ namespace cac_client
         try
         {
             sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-            sTmp += "<request><monitordata cacid=\"" + ConfUtil::getInstance()->getCacId();
+            sTmp += "<request type=\"monidata\"><monitordata cacid=\"" + ConfUtil::getInstance()->getCacId();
             sTmp += "\" datanodenum=\"init_rowcount\">";
 
             while (result->next())
@@ -223,14 +226,53 @@ namespace cac_client
         }
 
         boost::replace_first(sTmp, "init_rowcount", sICount);
-        LOG_INFO << "***sTmp: " << sTmp;
        
         //TODO:
+        //connect();
+        write(sTmp);
+        disconnect();
           
+    }
+
+    void UpLoadService::connect()
+    {
+        client_.connect();
+    }
+
+    void UpLoadService::disconnect()
+    {
+        //client_.disconnect();
+    }
+
+    void UpLoadService::write(const StringPiece& message)
+    {
+        MutexLockGuard lock(mutexConn_);
+        if (connection_)
+        {
+            dbdky::port::Buffer buf;
+            buf.append(message.data(), message.size());
+            int32_t len = static_cast<int32_t>(message.size());
+            int32_t be32 = hostToNetwork32(len);
+            buf.prepend(&be32, sizeof be32);
+            connection_->send(&buf);
+        }
     }
  
     void UpLoadService::onConnection(const TcpConnectionPtr& conn)
     {
+        LOG_INFO << conn->localAddress().toIpPort() << " -> "
+                << conn->peerAddress().toIpPort() << " is "
+                << (conn->connected() ? "UP" : "DOWN");
+
+        MutexLockGuard lock(mutexConn_);
+        if (conn->connected())
+        {
+            connection_ = conn;
+        }
+        else
+        {
+            connection_.reset();
+        }
     }
    
     void UpLoadService::onMessage(const TcpConnectionPtr& conn,

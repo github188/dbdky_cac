@@ -65,6 +65,8 @@ private:
     const string cacid_;
 
     mutable MutexLock mutex_;
+    mutable MutexLock mutexConn_;
+    TcpConnectionPtr connection_;
 
     boost::scoped_ptr<EventLoopThreadPool> threadPool_;
     boost::scoped_ptr<DBHelper> dbhelper_;
@@ -81,6 +83,10 @@ private:
     void uploadHeartbeatTask();
 
     TcpClient client_;
+
+    void connect();
+    void disconnect();
+    void write(const StringPiece& message);
 
     void onConnection(const TcpConnectionPtr&);
     void onMessage(const TcpConnectionPtr&, Buffer*, Timestamp);

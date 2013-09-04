@@ -39,7 +39,7 @@ void Connector::start()
 void Connector::startInLoop()
 {
     loop_->assertInLoopThread();
-    assert(state_ == kDisconnected);
+    //assert(state_ == kDisconnected);
     if (connect_)
     {
         connect();
@@ -125,7 +125,7 @@ void Connector::restart()
 void Connector::connecting(int sockfd)
 {
     setState(kConnecting);
-    assert(!channel_);
+    //assert(!channel_);
     channel_.reset(new Channel(loop_, sockfd));
     channel_->setWriteCallback(
         boost::bind(&Connector::handleWrite, this));

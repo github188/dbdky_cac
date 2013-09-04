@@ -76,7 +76,7 @@ void EPollPoller::fillActiveChannels(int numEvents, ChannelList* activeChannels)
 #ifndef NDEBUG
         int fd = channel->fd();
         ChannelMap::const_iterator it = channels_.find(fd);
-        assert(it != channels_.end());
+        //assert(it != channels_.end());
         //assert(it->second == channel);
 #endif
         channel->set_revents(events_[i].events);
@@ -94,7 +94,7 @@ void EPollPoller::updateChannel(Channel* channel)
         int fd = channel->fd();
         if (index == kNew)
         {
-            assert(channels_.find(fd) == channels_.end());
+            //assert(channels_.find(fd) == channels_.end());
             channels_[fd] == channel;
         }
         else
