@@ -39,6 +39,13 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
 {
     dbdky::string msg(buf->retrieveAllAsString());
     LOG_INFO << conn->name() << "received at [" << time.toString() << "]" << msg.size() << "bytes: " << msg;
+
+
+    //TODO:
+    string response;
+    char cRes = 0xff;
+    response += cRes;
+    conn->send(response);
 }
 }
 }

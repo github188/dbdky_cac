@@ -1,3 +1,4 @@
 add_subdirectory(echo)
 add_subdirectory(time)
 add_subdirectory(mysql)
+add_subdirectory(tinyxml)

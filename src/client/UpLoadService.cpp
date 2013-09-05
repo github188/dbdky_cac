@@ -279,6 +279,15 @@ namespace cac_client
                     Buffer* buf,
                     Timestamp receiveTime)
     {
+        string response = buf->retrieveAllAsString();
+        if (response[0] == 0x00)
+        {
+            LOG_INFO << "SUCCESS";
+        }
+        else
+        {
+            LOG_INFO << "BAD";
+        }
     }
 
     void UpLoadService::onWriteComplete(const TcpConnectionPtr& conn)
