@@ -3,6 +3,12 @@
 #include <utils/Logging.h>
 
 #include <boost/bind.hpp>
+#include <boost/algorithm/string.hpp>
+
+#include <string>
+#include <iostream>
+#include <sstream>
+#include "tinyxml.h"
 
 namespace dbdky
 {
@@ -39,12 +45,48 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
 {
     dbdky::string msg(buf->retrieveAllAsString());
     LOG_INFO << conn->name() << "received at [" << time.toString() << "]" << msg.size() << "bytes: " << msg;
-
-
     //TODO:
     string response;
-    char cRes = 0xff;
-    response += cRes;
+    TiXmlDocument doc;
+    doc.Parse(msg.c_str());
+    
+    TiXmlNode* node = NULL;
+    TiXmlElement* requestElement = NULL;
+    
+    node = doc.FirstChild("request");
+    if (NULL == node)
+    {
+        LOG_INFO << "1. Invalid xml format for incoming string: " << msg;
+        response += static_cast<char>(0x00);
+        //TODO:
+       // return;
+    }
+
+    requestElement = node->ToElement();
+    if (NULL == requestElement)
+    {
+        LOG_INFO << "2. Invalid xml format for incoming string";
+        response += static_cast<char>(0xff);
+    }
+
+    string typeInfo(requestElement->Attribute("type"));
+    if (typeInfo == "heartbeat")
+    {
+        boost::replace_first(msg, "request type=\"heartbeat\"", "request");
+        //TODO:
+        LOG_INFO << "++++++++++" << msg;
+    }
+    else if (typeInfo == "monidata")
+    {
+        boost::replace_first(msg, "request type=\"monidata\"", "request");
+        //TODO:
+        LOG_INFO << "----------" << msg;
+    }
+    else
+    {
+        LOG_INFO << "No recognized request, I will just throw it to CAG";
+    } 
+
     conn->send(response);
 }
 }

@@ -78,7 +78,8 @@ namespace cac_client
     {
         LOG_INFO << "uploadHeartbeatTask"; 
         
-        string sTmp;
+        string sTmp("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+
         string sJczzid;
 
         if (!dbhelper_->isConnected())
@@ -91,8 +92,7 @@ namespace cac_client
         }
 
         boost::shared_ptr<ResultSet> result(dbhelper_->query("select * from bd_cd"));
-
-        sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+        //string sTmp("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         sTmp += "<request type=\"heartbeat\"><monitordata cac id=\"" + ConfUtil::getInstance()->getCacId();
         sTmp += "<ip>" + ConfUtil::getInstance()->getLocalIP() + "</ip>";
         sTmp += "<curtime>" + Timestamp::now().toFormattedStringDash() + "</curtime>";
@@ -119,6 +119,9 @@ namespace cac_client
 
         //TODO:
         //connect();
+
+        LOG_INFO << "*************************";
+        LOG_INFO << sTmp;
         write(sTmp);
         disconnect();
 
@@ -129,8 +132,6 @@ namespace cac_client
     {
         LOG_INFO << "uploadMoniDataTask";
         int iCount = 0;
-
-        string sTmp;
 
         if (!dbhelper_->isConnected())
         {
@@ -149,9 +150,9 @@ namespace cac_client
             return;
         }
 
+        string sTmp("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         try
         {
-            sTmp += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
             sTmp += "<request type=\"monidata\"><monitordata cacid=\"" + ConfUtil::getInstance()->getCacId();
             sTmp += "\" datanodenum=\"init_rowcount\">";
 
