@@ -48,6 +48,7 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
     //TODO:
     string response;
     TiXmlDocument doc;
+    
     doc.Parse(msg.c_str());
     
     TiXmlNode* node = NULL;
@@ -56,10 +57,10 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
     node = doc.FirstChild("request");
     if (NULL == node)
     {
-        LOG_INFO << "1. Invalid xml format for incoming string: " << msg;
+        LOG_INFO << "1. Invalid xml format for incoming string: "; 
         response += static_cast<char>(0x00);
         //TODO:
-       // return;
+        return;
     }
 
     requestElement = node->ToElement();

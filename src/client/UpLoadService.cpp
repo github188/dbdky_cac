@@ -59,7 +59,6 @@ namespace cac_client
 
     void UpLoadService::onSystemTimer()
     {
-    //    LOG_INFO << "onSystemTimer";
     }
 
     void UpLoadService::onHeartbeatTimer()
@@ -77,7 +76,7 @@ namespace cac_client
     void UpLoadService::uploadHeartbeatTask()
     {
         LOG_INFO << "uploadHeartbeatTask"; 
-        
+       
         string sTmp("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 
         string sJczzid;
@@ -92,23 +91,42 @@ namespace cac_client
         }
 
         boost::shared_ptr<ResultSet> result(dbhelper_->query("select * from bd_cd"));
-        //string sTmp("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-        sTmp += "<request type=\"heartbeat\"><monitordata cac id=\"" + ConfUtil::getInstance()->getCacId();
-        sTmp += "<ip>" + ConfUtil::getInstance()->getLocalIP() + "</ip>";
-        sTmp += "<curtime>" + Timestamp::now().toFormattedStringDash() + "</curtime>";
+        sTmp += "<request type=\"heartbeat\"><monitordata cac id=\"";
+        sTmp += ConfUtil::getInstance()->getCacId();
+
+        sTmp += "<ip>";
+        sTmp += ConfUtil::getInstance()->getLocalIP();
+        sTmp += "</ip>";
+
+
+        sTmp += "<curtime>";
+        sTmp += Timestamp::now().toFormattedStringDash();
+        sTmp += "</curtime>";
+
+
         sTmp += "<operationtemperature>15.00</operationtemperature></cac>";
+
         sTmp += "<sensors>";
-    
+
+  
+        string sTmp1; 
         try
         {
             while (result->next())
             {
                 sJczzid = result->getString("DeviceCode");
-                sTmp += "<sensor id = \"" + sJczzid + "\">";
-                sTmp += "<status>NORMAL</status>";
-                sTmp += "<operationtemperature>15.00</operationtemperature>";
-                sTmp += "</sensor>"; 
+                sTmp1 += "<sensor id = \"";
+                sTmp1 += sJczzid;
+                sTmp1 += "\">";
+
+                sTmp1 += "<status>NORMAL</status>";
+
+                sTmp1 += "<operationtemperature>15.00</operationtemperature>";
+
+                sTmp1 += "</sensor>"; 
+
             }
+
         }
         catch (std::exception& e)
         {
@@ -117,11 +135,10 @@ namespace cac_client
 
         sTmp += "</sensors></request>";
 
+        sTmp += sTmp1;
+         
         //TODO:
         //connect();
-
-        LOG_INFO << "*************************";
-        LOG_INFO << sTmp;
         write(sTmp);
         disconnect();
 
@@ -252,9 +269,9 @@ namespace cac_client
         {
             dbdky::port::Buffer buf;
             buf.append(message.data(), message.size());
-            int32_t len = static_cast<int32_t>(message.size());
-            int32_t be32 = hostToNetwork32(len);
-            buf.prepend(&be32, sizeof be32);
+            //int32_t len = static_cast<int32_t>(message.size());
+            //int32_t be32 = hostToNetwork32(len);
+            //buf.prepend(&be32, sizeof be32);
             connection_->send(&buf);
         }
     }
