@@ -9,6 +9,7 @@ set(confUtil_SRCS
     ConfigUtil.cpp
 )
 
+include_directories(${THIRD_PARTY_DIR}/tinyxml)
 add_library(confutil ${confUtil_SRCS})
 target_link_libraries(confutil tinyxml)
 install(TARGETS confutil DESTINATION lib)

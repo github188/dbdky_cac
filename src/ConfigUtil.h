@@ -4,6 +4,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <port/InetAddress.h>
+#include <utils/Timestamp.h>
 
 #include <string>
 
@@ -53,6 +54,21 @@ public:
         return localIP_;
     }
 
+    uint64_t getLastUploadTime() const
+    {
+        return lastUploadTime_;
+    }
+
+    string getProxyIP() const
+    {
+        return proxyIP_;
+    }
+
+    uint16_t getProxyPort() const
+    {
+        return proxyPort_;
+    }
+
 private:
     ConfUtil();
 
@@ -67,6 +83,11 @@ private:
     string dbName_;
     string cacid_;
     string localIP_;
+    string proxyIP_;
+    uint16_t proxyPort_;
+    uint64_t lastUploadTime_;
+
+    void updateConfigs();
 };
 }
 }
