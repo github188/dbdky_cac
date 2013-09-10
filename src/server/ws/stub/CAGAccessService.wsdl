@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="uploadCMAData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="uploadCMADataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uploadCMADataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="uploadCMAHeartbeatInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="uploadCMAHeartbeatInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uploadCMAHeartbeatInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="upLoadCACData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="upLoadCACDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="upLoadCACDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="uploadCMADataSoapIn">
+    <wsdl:part name="parameters" element="tns:uploadCMAData" />
+  </wsdl:message>
+  <wsdl:message name="uploadCMADataSoapOut">
+    <wsdl:part name="parameters" element="tns:uploadCMADataResponse" />
+  </wsdl:message>
+  <wsdl:message name="uploadCMAHeartbeatInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:uploadCMAHeartbeatInfo" />
+  </wsdl:message>
+  <wsdl:message name="uploadCMAHeartbeatInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:uploadCMAHeartbeatInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="upLoadCACDataSoapIn">
+    <wsdl:part name="parameters" element="tns:upLoadCACData" />
+  </wsdl:message>
+  <wsdl:message name="upLoadCACDataSoapOut">
+    <wsdl:part name="parameters" element="tns:upLoadCACDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CAGWebServicePortSoap">
+    <wsdl:operation name="uploadCMAData">
+      <wsdl:input message="tns:uploadCMADataSoapIn" />
+      <wsdl:output message="tns:uploadCMADataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="uploadCMAHeartbeatInfo">
+      <wsdl:input message="tns:uploadCMAHeartbeatInfoSoapIn" />
+      <wsdl:output message="tns:uploadCMAHeartbeatInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="upLoadCACData">
+      <wsdl:input message="tns:upLoadCACDataSoapIn" />
+      <wsdl:output message="tns:upLoadCACDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CAGWebServicePortSoap" type="tns:CAGWebServicePortSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="uploadCMAData">
+      <soap:operation soapAction="http://tempuri.org/uploadCMAData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCMAHeartbeatInfo">
+      <soap:operation soapAction="http://tempuri.org/uploadCMAHeartbeatInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="upLoadCACData">
+      <soap:operation soapAction="http://tempuri.org/upLoadCACData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CAGWebServicePortSoap12" type="tns:CAGWebServicePortSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="uploadCMAData">
+      <soap12:operation soapAction="http://tempuri.org/uploadCMAData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCMAHeartbeatInfo">
+      <soap12:operation soapAction="http://tempuri.org/uploadCMAHeartbeatInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="upLoadCACData">
+      <soap12:operation soapAction="http://tempuri.org/upLoadCACData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CAGWebServicePort">
+    <wsdl:port name="CAGWebServicePortSoap" binding="tns:CAGWebServicePortSoap">
+      <soap:address location="http://172.168.1.233:8080/CAGService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CAGWebServicePortSoap12" binding="tns:CAGWebServicePortSoap12">
+      <soap12:address location="http://172.168.1.233:8080/CAGService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

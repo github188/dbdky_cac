@@ -39,7 +39,7 @@ ConfUtil::ConfUtil()
     proxyPort_(6000),
     lastUploadTime_(Timestamp::now().microSecondsSinceEpoch())
 {
-    updateConfigs();
+//    updateConfigs();
 }
 
 InetAddress& ConfUtil::getProxyAddress() const
@@ -74,14 +74,7 @@ void ConfUtil::updateConfigs()
 
     node = doc.FirstChild("configs");
 
-    if (NULL == node)
-    {
-        LOG_ERROR << "Parse config file error.";
-        return;
-    }
-
-    element = node->ToElement();
-    if (NULL == element)
+    if ((NULL == node) || !(element = node->ToElement()))
     {
         LOG_ERROR << "Parse config file error.";
         return;

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://info.nari-china.com/CAG" xmlns:tns="http://info.nari-china.com/CAG" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://info.nari-china.com/CAG">
+<xsd:element name="uploadCACData">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="uploadCACDataResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACUpdateFile">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACUpdateFileResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACLatestVersion">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACLatestVersionResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="uploadCACHeartbeatInfo">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="uploadCACHeartbeatInfoResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="uploadCACConfig">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="uploadCACConfigResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACHistoryVersion">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="downloadCACHistoryVersionResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="downloadCACHistoryVersionResponse">
+    <wsdl:part name="parameters" element="tns:downloadCACHistoryVersionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACHeartbeatInfoRequest">
+    <wsdl:part name="parameters" element="tns:uploadCACHeartbeatInfo">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="downloadCACUpdateFileRequest">
+    <wsdl:part name="parameters" element="tns:downloadCACUpdateFile">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACConfigResponse">
+    <wsdl:part name="parameters" element="tns:uploadCACConfigResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="downloadCACHistoryVersionRequest">
+    <wsdl:part name="parameters" element="tns:downloadCACHistoryVersion">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="downloadCACUpdateFileResponse">
+    <wsdl:part name="parameters" element="tns:downloadCACUpdateFileResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACConfigRequest">
+    <wsdl:part name="parameters" element="tns:uploadCACConfig">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="downloadCACLatestVersionRequest">
+    <wsdl:part name="parameters" element="tns:downloadCACLatestVersion">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACDataRequest">
+    <wsdl:part name="parameters" element="tns:uploadCACData">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="downloadCACLatestVersionResponse">
+    <wsdl:part name="parameters" element="tns:downloadCACLatestVersionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACDataResponse">
+    <wsdl:part name="parameters" element="tns:uploadCACDataResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadCACHeartbeatInfoResponse">
+    <wsdl:part name="parameters" element="tns:uploadCACHeartbeatInfoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CAGAccessServicePortType">
+    <wsdl:operation name="uploadCACData">
+      <wsdl:input name="uploadCACDataRequest" message="tns:uploadCACDataRequest">
+    </wsdl:input>
+      <wsdl:output name="uploadCACDataResponse" message="tns:uploadCACDataResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACUpdateFile">
+      <wsdl:input name="downloadCACUpdateFileRequest" message="tns:downloadCACUpdateFileRequest">
+    </wsdl:input>
+      <wsdl:output name="downloadCACUpdateFileResponse" message="tns:downloadCACUpdateFileResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACLatestVersion">
+      <wsdl:input name="downloadCACLatestVersionRequest" message="tns:downloadCACLatestVersionRequest">
+    </wsdl:input>
+      <wsdl:output name="downloadCACLatestVersionResponse" message="tns:downloadCACLatestVersionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCACHeartbeatInfo">
+      <wsdl:input name="uploadCACHeartbeatInfoRequest" message="tns:uploadCACHeartbeatInfoRequest">
+    </wsdl:input>
+      <wsdl:output name="uploadCACHeartbeatInfoResponse" message="tns:uploadCACHeartbeatInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCACConfig">
+      <wsdl:input name="uploadCACConfigRequest" message="tns:uploadCACConfigRequest">
+    </wsdl:input>
+      <wsdl:output name="uploadCACConfigResponse" message="tns:uploadCACConfigResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACHistoryVersion">
+      <wsdl:input name="downloadCACHistoryVersionRequest" message="tns:downloadCACHistoryVersionRequest">
+    </wsdl:input>
+      <wsdl:output name="downloadCACHistoryVersionResponse" message="tns:downloadCACHistoryVersionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CAGAccessServiceHttpBinding" type="tns:CAGAccessServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="uploadCACData">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="uploadCACDataRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="uploadCACDataResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACUpdateFile">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="downloadCACUpdateFileRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="downloadCACUpdateFileResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACLatestVersion">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="downloadCACLatestVersionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="downloadCACLatestVersionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCACHeartbeatInfo">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="uploadCACHeartbeatInfoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="uploadCACHeartbeatInfoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadCACConfig">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="uploadCACConfigRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="uploadCACConfigResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="downloadCACHistoryVersion">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="downloadCACHistoryVersionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="downloadCACHistoryVersionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CAGAccessService">
+    <wsdl:port name="CAGAccessServiceHttpPort" binding="tns:CAGAccessServiceHttpBinding">
+      <wsdlsoap:address location="http://10.162.211.23/TRANSFCAG/services/CAGAccessService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
