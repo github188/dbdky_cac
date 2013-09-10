@@ -69,6 +69,7 @@ public:
         return proxyPort_;
     }
 
+    void dumpConfigs() const;
 private:
     ConfUtil();
 

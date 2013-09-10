@@ -12,7 +12,7 @@ using namespace port;
 
 using namespace dbdky;
 
-static const string confFileName = "./.cac_client.conf";
+static const string confFileName = "cac_client.conf";
 
 boost::shared_ptr<ConfUtil> ConfUtil::instance_;
 boost::shared_ptr<ConfUtil> ConfUtil::getInstance()
@@ -39,7 +39,8 @@ ConfUtil::ConfUtil()
     proxyPort_(6000),
     lastUploadTime_(Timestamp::now().microSecondsSinceEpoch())
 {
-//    updateConfigs();
+    updateConfigs();
+    dumpConfigs();
 }
 
 InetAddress& ConfUtil::getProxyAddress() const
@@ -183,7 +184,17 @@ void ConfUtil::updateConfigs()
         }
         else if ("last_upload" == itemName)
         {
-            
+            uint64_t tmpLastUpload;
+
+            try
+            {
+                lastUploadTime_ = boost::lexical_cast<uint64_t>(itemValue);
+                lastUploadTime_ = tmpLastUpload;
+            }
+            catch (boost::bad_lexical_cast& e)
+            {
+                LOG_WARN << "Parse item fail.";
+            }
         }
         else
         {
@@ -193,7 +204,23 @@ void ConfUtil::updateConfigs()
         }
 
         node = element->NextSibling();
-    }    
-    
+    }
 }
 
+void ConfUtil::dumpConfigs() const
+{
+    LOG_INFO << "*********ConfUtil************";
+    LOG_INFO << "systemTick: " << systemTick_;
+    LOG_INFO << "heartBeatTick: " << heartBeatTick_;
+    LOG_INFO << "uploadMoniDataTick: " << uploadMoniDataTick_;
+    LOG_INFO << "dbPath: " << dbPath_;
+    LOG_INFO << "dbUser: " << dbUser_;
+    LOG_INFO << "dbPasswd: " << dbPasswd_;
+    LOG_INFO << "dbName: " << dbName_;
+    LOG_INFO << "cacid: " << cacid_;
+    LOG_INFO << "localIP: " << localIP_;
+    LOG_INFO << "proxyIP: " << proxyIP_;
+    LOG_INFO << "proxyPort: " << proxyPort_;
+    LOG_INFO << "lastUploadTime: " << Timestamp(lastUploadTime_).toFormattedString();
+    LOG_INFO << "************ConfUtil***********************";
+}
