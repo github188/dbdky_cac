@@ -3,6 +3,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/function.hpp>
+
 #include <port/InetAddress.h>
 #include <utils/Timestamp.h>
 
@@ -18,7 +20,9 @@ class ConfUtil : boost::noncopyable
 {
 public:
     static boost::shared_ptr<ConfUtil> getInstance();
-    
+   
+    //boost::function <void(const string&, const string&)> OnUpdateItem; 
+
     InetAddress& getProxyAddress() const;
     uint16_t getSystemTick() const;
     uint32_t getHeartbeatTick() const;
@@ -70,6 +74,8 @@ public:
     }
 
     void dumpConfigs() const;
+
+    void saveItem2File(const string&, const string&);
 private:
     ConfUtil();
 

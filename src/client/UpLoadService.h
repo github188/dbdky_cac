@@ -64,8 +64,15 @@ private:
     const string name_;
     const string cacid_;
 
+
+    uint16_t updateIntervalCounter_;
+
     mutable MutexLock mutex_;
     mutable MutexLock mutexConn_;
+    mutable MutexLock mutexTimestamp_;
+
+    uint64_t updateTimestamp_;
+
     TcpConnectionPtr connection_;
 
     boost::scoped_ptr<EventLoopThreadPool> threadPool_;

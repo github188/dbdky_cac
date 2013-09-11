@@ -228,3 +228,58 @@ void ConfUtil::dumpConfigs() const
     LOG_INFO << "lastUploadTime: " << Timestamp(lastUploadTime_).toFormattedString();
     LOG_INFO << "************ConfUtil***********************";
 }
+
+void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
+{
+    //TODO:
+    LOG_INFO << "========" << itemName << "     " << itemValue;
+    TiXmlDocument doc(confFileName);
+    TiXmlNode* node = NULL;
+    TiXmlNode* inside = NULL;
+    TiXmlElement* element = NULL;
+    TiXmlElement* itemElement = NULL;
+
+    doc.LoadFile();
+    
+    if (doc.Error() && doc.ErrorId() == TiXmlBase::TIXML_ERROR_OPENING_FILE)
+    {
+        LOG_ERROR << "ERROR";
+        return;
+    }
+ 
+    node = doc.FirstChild("configs");
+    
+    if ((NULL == node) || !(element = node->ToElement()))
+    {
+        LOG_ERROR << "ERROR";
+        return;
+    }
+
+    inside = element->FirstChild("item");
+    
+    while(inside)
+    {
+        itemElement = inside->ToElement();
+        if (!itemElement)
+        {
+            inside = itemElement->NextSibling();
+            continue;
+        }
+
+        string iName = itemElement->Attribute("name");
+        string iValue = itemElement->Attribute("value");
+
+        if (itemName == iName)
+        {
+            itemElement->SetAttribute("value", itemValue.c_str());
+            break;
+        }
+        else
+        {
+            inside = itemElement->NextSibling();
+            continue;
+        }
+    }
+
+    doc.SaveFile();
+}

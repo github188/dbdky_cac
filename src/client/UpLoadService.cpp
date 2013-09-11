@@ -1,5 +1,7 @@
 #include "UpLoadService.h"
 #include "ConfigUtil.h"
+#include "Default_defs.h"
+
 #include <boost/bind.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/algorithm/string.hpp>
@@ -18,11 +20,13 @@ namespace cac_client
       : loop_(loop),
         name_(name),
         client_(loop, proxyAddr, name),
+        updateIntervalCounter_(0),
         threadPool_(new EventLoopThreadPool(loop)),
         dbhelper_(new DBHelper(ConfUtil::getInstance()->getDBPath(),
                              ConfUtil::getInstance()->getDBUser(),
                              ConfUtil::getInstance()->getDBPasswd(),
-                             ConfUtil::getInstance()->getDBName()))
+                             ConfUtil::getInstance()->getDBName())),
+        updateTimestamp_(ConfUtil::getInstance()->getLastUploadTime())
     {
         client_.setConnectionCallback(
             boost::bind(&UpLoadService::onConnection, this, _1));
@@ -30,7 +34,7 @@ namespace cac_client
             boost::bind(&UpLoadService::onMessage, this, _1, _2, _3));
         client_.setWriteCompleteCallback(
             boost::bind(&UpLoadService::onWriteComplete, this, _1));
-       
+
         //FIXME:
         threadPool_->setThreadNum(6);
         threadPool_->start();
@@ -59,6 +63,31 @@ namespace cac_client
 
     void UpLoadService::onSystemTimer()
     {
+        uint64_t tmpTs = Timestamp::now().microSecondsSinceEpoch()
+;
+
+        {
+            MutexLockGuard lock(mutexTimestamp_);
+            tmpTs = updateTimestamp_;
+        }
+ 
+        string sTs;
+
+        try 
+        {
+            sTs = boost::lexical_cast<string>(tmpTs);
+        }
+        catch (boost::bad_lexical_cast& e)
+        {
+            LOG_ERROR << "Can't cast timestamp";
+            return;
+        }
+            
+        if (++updateIntervalCounter_ >= DEFAULT_UPDATE_INTERVAL_COUNTER)
+        {
+            boost::bind(&ConfUtil::saveItem2File, ConfUtil::getInstance(), _1, _2)("last_upload", sTs);
+            updateIntervalCounter_ = 0;
+        }
     }
 
     void UpLoadService::onHeartbeatTimer()
@@ -188,10 +217,23 @@ namespace cac_client
         	string sIEDID = result->getString("IEDID");
 
 		std::transform(sJCLXBM.begin(), sJCLXBM.end(), sJCLXBM.begin(), ::tolower);
+
+                uint64_t tmpTs;
+
+                {
+                    MutexLockGuard lock(mutexTimestamp_);
+                    tmpTs = updateTimestamp_;
+                }
+
+                //string sQuery = "select * from " + sJCLXBM
+     //                   + " where cdid = " + sObjid
+     //                   + " and AcquisitionTime > " + "'" + Timestamp::now().toFormattedStringDash() + "';";
+     
                 string sQuery = "select * from " + sJCLXBM
                         + " where cdid = " + sObjid
-                        + " and AcquisitionTime > " + "'" + Timestamp::now().toFormattedStringDash() + "';";
-
+                        + " and AcquisitionTime > " + "'" + Timestamp(tmpTs).toFormattedStringDash() + "';";
+     
+                LOG_INFO << "::::::::::" << sQuery; 
 
                 if (!dbhelper_->isConnected())
                 {
@@ -248,6 +290,12 @@ namespace cac_client
         //TODO:
         //connect();
         write(sTmp);
+
+        {
+            MutexLockGuard lock(mutexTimestamp_);
+            updateTimestamp_ = Timestamp::now().microSecondsSinceEpoch();
+        }
+
         disconnect();
           
     }

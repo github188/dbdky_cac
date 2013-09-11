@@ -13,4 +13,5 @@
 #define DEFAULT_PROXYIP 		"127.0.0.1"
 #define DEFAULT_PORT 			6000
 
+#define DEFAULT_UPDATE_INTERVAL_COUNTER 5
 #endif
