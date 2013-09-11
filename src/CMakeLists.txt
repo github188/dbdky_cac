@@ -11,5 +11,5 @@ set(confUtil_SRCS
 
 include_directories(${THIRD_PARTY_DIR}/tinyxml)
 add_library(confutil ${confUtil_SRCS})
-target_link_libraries(confutil tinyxml)
+target_link_libraries(confutil tinyxml utils)
 install(TARGETS confutil DESTINATION lib)

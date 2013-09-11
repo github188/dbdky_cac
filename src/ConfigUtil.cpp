@@ -1,7 +1,5 @@
 #include "ConfigUtil.h"
-
-using namespace dbdky;
-using namespace port;
+#include "Default_defs.h"
 
 #include <utils/Timestamp.h>
 #include <utils/Logging.h>
@@ -11,6 +9,7 @@ using namespace port;
 #include "tinyxml.h"
 
 using namespace dbdky;
+using namespace dbdky::port;
 
 static const string confFileName = "cac_client.conf";
 
@@ -26,17 +25,17 @@ boost::shared_ptr<ConfUtil> ConfUtil::getInstance()
 }
 
 ConfUtil::ConfUtil()
-  : systemTick_(1),
-    heartBeatTick_(2),
-    uploadMoniDataTick_(3),
-    dbPath_("tcp://127.0.0.1:3306"),
-    dbUser_("root"),
-    dbPasswd_("kevinLike$"),
-    dbName_("omsdb"),
-    cacid_("22M00000022376016"),
-    localIP_("127.0.0.1"),
-    proxyIP_("127.0.0.1"),
-    proxyPort_(6000),
+  : systemTick_(DEFAULT_SYSTEMTICK),
+    heartBeatTick_(DEFAULT_HEARTBEATTICK),
+    uploadMoniDataTick_(DEFAULT_UPLOADMONIDATATICK),
+    dbPath_(DEFAULT_DBPATH),
+    dbUser_(DEFAULT_DBUSER),
+    dbPasswd_(DEFAULT_DBPASSWD),
+    dbName_(DEFAULT_DBNAME),
+    cacid_(DEFAULT_CACID),
+    localIP_(DEFAULT_LOCALIP),
+    proxyIP_(DEFAULT_PROXYIP),
+    proxyPort_(DEFAULT_PORT),
     lastUploadTime_(Timestamp::now().microSecondsSinceEpoch())
 {
     updateConfigs();
@@ -72,9 +71,15 @@ void ConfUtil::updateConfigs()
 
     TiXmlDocument doc(confFileName);
     doc.LoadFile();
+    
+    if (doc.Error() && doc.ErrorId() == TiXmlBase::TIXML_ERROR_OPENING_FILE)
+    {
+        LOG_ERROR << "ERROR";
+        return;
+    }
 
-    node = doc.FirstChild("configs");
-
+    
+    node = doc.FirstChild("configs");   
     if ((NULL == node) || !(element = node->ToElement()))
     {
         LOG_ERROR << "Parse config file error.";
@@ -124,7 +129,6 @@ void ConfUtil::updateConfigs()
             try 
             {
                 tmpSystemTick = boost::lexical_cast<uint16_t>(itemValue);
- 
                 systemTick_ = tmpSystemTick;
             }
             catch (boost::bad_lexical_cast& e)
@@ -199,11 +203,11 @@ void ConfUtil::updateConfigs()
         else
         {
             LOG_WARN << "Unknown config item found.";
-            node = element->NextSibling();
+            inside = tmpElement->NextSibling();
             continue;
         }
 
-        node = element->NextSibling();
+        inside = tmpElement->NextSibling();
     }
 }
 
