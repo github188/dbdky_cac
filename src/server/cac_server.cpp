@@ -25,16 +25,21 @@ namespace detail
         _ns1__upLoadCACDataResponse response;
  
         param.sXml = new std::string(msg);
-
+        
         if (service.upLoadCACData(&param, &response) == SOAP_OK)
         {
             LOG_INFO << "SOAP_OK: upLoadCACData response: " << *(response.upLoadCACDataResult);
+            if (NULL == response.upLoadCACDataResult)
+            {
+                return string("");
+            }
+
             return *(response.upLoadCACDataResult);
         }
         else
         {
-            LOG_ERROR << "Response Not OK";
             service.soap_stream_fault(std::cerr);
+            return string("");
         }
 
         service.destroy();
@@ -145,9 +150,11 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
     {
         boost::replace_first(msg, "request type=\"heartbeat\"", "request");
         string resp = detail::upLoadCACData(msg);
+        
+       
         if ("" == resp)
         {
-            response += static_cast<char>(0x00); 
+            response += static_cast<char>(0xff); 
         }
         else
         {
@@ -167,7 +174,7 @@ void cac_server::onMessage(const dbdky::port::TcpConnectionPtr& conn,
         string resp = detail::upLoadCACData(msg);
         if ("" == resp)
         {
-            response += static_cast<char>(0x00);
+            response += static_cast<char>(0xff);
         }
         else
         {
