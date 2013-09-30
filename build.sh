@@ -9,6 +9,10 @@ INSTALL_DIR=${INSTALL_DIR:-./${BUILD_TYPE}-install}
 BUILD_NO_EXAMPLES=${BUILD_NO_EXAMPLES:-0}
 DAT_DIR=${SOURCE_DIR}/dat
 
+cd src/server/ws/stub \
+  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
+  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
+
 mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && cd $BUILD_DIR/$BUILD_TYPE \
   && cmake --graphviz=dep.dot \

@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../lib/libconfutil.a  CMakeFiles/confutil.dir/ConfigUtil.cpp.o
+/usr/bin/ranlib ../lib/libconfutil.a

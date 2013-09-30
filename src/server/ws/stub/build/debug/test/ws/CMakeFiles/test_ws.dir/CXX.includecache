@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kevin/workspace/dbdky_cac/test/ws/CAGWebServicePortSoap.nsmap
+soapH.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapH.h
+
+/home/kevin/workspace/dbdky_cac/test/ws/main.cpp
+soapCAGWebServicePortSoapProxy.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapCAGWebServicePortSoapProxy.h
+CAGWebServicePortSoap.nsmap
+/home/kevin/workspace/dbdky_cac/test/ws/CAGWebServicePortSoap.nsmap
+iostream
+-
+
+/home/kevin/workspace/dbdky_cac/test/ws/soapC.cpp
+soapH.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapH.h
+
+/home/kevin/workspace/dbdky_cac/test/ws/soapCAGWebServicePortSoapProxy.cpp
+soapCAGWebServicePortSoapProxy.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapCAGWebServicePortSoapProxy.h
+
+/home/kevin/workspace/dbdky_cac/test/ws/soapCAGWebServicePortSoapProxy.h
+soapH.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapH.h
+
+/home/kevin/workspace/dbdky_cac/test/ws/soapH.h
+soapStub.h
+/home/kevin/workspace/dbdky_cac/test/ws/soapStub.h
+
+/home/kevin/workspace/dbdky_cac/test/ws/soapStub.h
+vector
+-
+stdsoap2.h
+/home/kevin/workspace/dbdky_cac/test/ws/stdsoap2.h
+

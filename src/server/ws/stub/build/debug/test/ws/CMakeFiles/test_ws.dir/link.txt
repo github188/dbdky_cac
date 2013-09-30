@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -g -DTIXML_USE_STL    CMakeFiles/test_ws.dir/main.cpp.o CMakeFiles/test_ws.dir/soapCAGWebServicePortSoapProxy.cpp.o CMakeFiles/test_ws.dir/soapC.cpp.o  -o ../../bin/test_ws -rdynamic -lgsoap++ 

@@ -1,0 +1,21 @@
+digraph GG {
+node [
+  fontsize = "12"
+];
+    "node20" [ label="driver_test" shape="house"];
+    "node7" [ label="mysqlcppconn" shape="polygon"];
+    "node20" -> "node7" // driver_test -> mysqlcppconn
+    "node50" [ label="mysqlclient_r" shape="ellipse"];
+    "node7" -> "node50" // mysqlcppconn -> mysqlclient_r
+    "node47" [ label="pthread" shape="ellipse"];
+    "node7" -> "node47" // mysqlcppconn -> pthread
+    "node51" [ label="z" shape="ellipse"];
+    "node7" -> "node51" // mysqlcppconn -> z
+    "node52" [ label="m" shape="ellipse"];
+    "node7" -> "node52" // mysqlcppconn -> m
+    "node48" [ label="rt" shape="ellipse"];
+    "node7" -> "node48" // mysqlcppconn -> rt
+    "node53" [ label="dl" shape="ellipse"];
+    "node7" -> "node53" // mysqlcppconn -> dl
+    "node20" -> "node50" // driver_test -> mysqlclient_r
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../lib/libws_interface.a  CMakeFiles/ws_interface.dir/stub/soapCAGWebServicePortSoapProxy.cpp.o CMakeFiles/ws_interface.dir/stub/soapC.cpp.o
+/usr/bin/ranlib ../../../lib/libws_interface.a

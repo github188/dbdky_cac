@@ -1,0 +1,8 @@
+digraph GG {
+node [
+  fontsize = "12"
+];
+    "node46" [ label="test_ws" shape="house"];
+    "node49" [ label="gsoap++" shape="ellipse"];
+    "node46" -> "node49" // test_ws -> gsoap++
+}

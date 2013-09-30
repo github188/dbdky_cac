@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -g -DTIXML_USE_STL    CMakeFiles/test_echo.dir/echo.cpp.o CMakeFiles/test_echo.dir/main.cpp.o  -o ../../bin/test_echo -rdynamic ../../lib/libutils.a ../../lib/libport.a -lpthread -lrt 

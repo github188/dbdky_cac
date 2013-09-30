@@ -1,0 +1,48 @@
+digraph GG {
+node [
+  fontsize = "12"
+];
+    "node7" [ label="mysqlcppconn" shape="polygon"];
+    "node23" [ label="CJUnitTestsPort" shape="house"];
+    "node23" -> "node7" // mysqlcppconn -> CJUnitTestsPort
+    "node37" [ label="bug123" shape="house"];
+    "node37" -> "node7" // mysqlcppconn -> bug123
+    "node38" [ label="bug456" shape="house"];
+    "node38" -> "node7" // mysqlcppconn -> bug456
+    "node6" [ label="dbhelper" shape="diamond"];
+    "node6" -> "node7" // mysqlcppconn -> dbhelper
+    "node5" [ label="cac_client" shape="house"];
+    "node5" -> "node6" // dbhelper -> cac_client
+    "node20" [ label="driver_test" shape="house"];
+    "node20" -> "node7" // mysqlcppconn -> driver_test
+    "node24" [ label="example" shape="house"];
+    "node24" -> "node7" // mysqlcppconn -> example
+    "node35" [ label="perf_statement" shape="house"];
+    "node35" -> "node7" // mysqlcppconn -> perf_statement
+    "node21" [ label="static_test" shape="house"];
+    "node21" -> "node7" // mysqlcppconn -> static_test
+    "node25" [ label="test_art_resultset" shape="house"];
+    "node25" -> "node7" // mysqlcppconn -> test_art_resultset
+    "node26" [ label="test_connection" shape="house"];
+    "node26" -> "node7" // mysqlcppconn -> test_connection
+    "node27" [ label="test_databasemetadata" shape="house"];
+    "node27" -> "node7" // mysqlcppconn -> test_databasemetadata
+    "node44" [ label="test_mysql" shape="house"];
+    "node44" -> "node7" // mysqlcppconn -> test_mysql
+    "node28" [ label="test_parametermetadata" shape="house"];
+    "node28" -> "node7" // mysqlcppconn -> test_parametermetadata
+    "node29" [ label="test_preparedstatement" shape="house"];
+    "node29" -> "node7" // mysqlcppconn -> test_preparedstatement
+    "node30" [ label="test_resultset" shape="house"];
+    "node30" -> "node7" // mysqlcppconn -> test_resultset
+    "node31" [ label="test_resultsetmetadata" shape="house"];
+    "node31" -> "node7" // mysqlcppconn -> test_resultsetmetadata
+    "node32" [ label="test_savepoint" shape="house"];
+    "node32" -> "node7" // mysqlcppconn -> test_savepoint
+    "node33" [ label="test_statement" shape="house"];
+    "node33" -> "node7" // mysqlcppconn -> test_statement
+    "node34" [ label="test_uri" shape="house"];
+    "node34" -> "node7" // mysqlcppconn -> test_uri
+    "node36" [ label="unsorted_bugs" shape="house"];
+    "node36" -> "node7" // mysqlcppconn -> unsorted_bugs
+}

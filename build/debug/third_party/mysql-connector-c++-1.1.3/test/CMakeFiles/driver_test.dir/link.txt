@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -g -DTIXML_USE_STL      CMakeFiles/driver_test.dir/driver_test.cpp.o  -o ../../../bin/driver_test -rdynamic ../../../lib/libmysqlcppconn.so.7.1.1.3 -lmysqlclient_r -lpthread -lz -lm -lrt -ldl -Wl,-rpath,/home/kevin/workspace/dbdky_cac/build/debug/lib 

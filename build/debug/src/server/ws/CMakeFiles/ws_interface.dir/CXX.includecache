@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapC.cpp
+soapH.h
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapH.h
+
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapCAGWebServicePortSoapProxy.cpp
+soapCAGWebServicePortSoapProxy.h
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapCAGWebServicePortSoapProxy.h
+
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapCAGWebServicePortSoapProxy.h
+soapH.h
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapH.h
+
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapH.h
+soapStub.h
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapStub.h
+
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/soapStub.h
+vector
+-
+stdsoap2.h
+/home/kevin/workspace/dbdky_cac/src/server/ws/stub/stdsoap2.h
+

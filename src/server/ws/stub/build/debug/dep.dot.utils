@@ -1,0 +1,10 @@
+digraph GG {
+node [
+  fontsize = "12"
+];
+    "node1" [ label="utils" shape="diamond"];
+    "node47" [ label="pthread" shape="ellipse"];
+    "node1" -> "node47" // utils -> pthread
+    "node48" [ label="rt" shape="ellipse"];
+    "node1" -> "node48" // utils -> rt
+}

@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -g -DTIXML_USE_STL    CMakeFiles/test_timeclient.dir/timeclient.cpp.o  -o ../../bin/test_timeclient -rdynamic ../../lib/libutils.a ../../lib/libport.a -lpthread -lrt 

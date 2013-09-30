@@ -1,0 +1,8 @@
+digraph GG {
+node [
+  fontsize = "12"
+];
+    "node40" [ label="xmltest" shape="house"];
+    "node39" [ label="tinyxml" shape="diamond"];
+    "node40" -> "node39" // xmltest -> tinyxml
+}
