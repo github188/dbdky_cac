@@ -13,6 +13,14 @@ cd src/server/ws/stub \
   && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
   && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
 
+cd $SOURCE_DIR
+
+cd src/server/ws/cag \
+  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
+  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
+
+cd $SOURCE_DIR
+
 mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && cd $BUILD_DIR/$BUILD_TYPE \
   && cmake --graphviz=dep.dot \
