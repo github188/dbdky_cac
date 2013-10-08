@@ -21,6 +21,12 @@ cd src/server/ws/cag \
 
 cd $SOURCE_DIR
 
+cd src/server/ws/cag_test \
+  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
+  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
+
+cd $SOURCRE_DIR
+
 mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && cd $BUILD_DIR/$BUILD_TYPE \
   && cmake --graphviz=dep.dot \
