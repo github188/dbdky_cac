@@ -8,24 +8,23 @@ BUILD_TYPE=${BUILD_TYPE:-debug}
 INSTALL_DIR=${INSTALL_DIR:-./${BUILD_TYPE}-install}
 BUILD_NO_EXAMPLES=${BUILD_NO_EXAMPLES:-0}
 DAT_DIR=${SOURCE_DIR}/dat
+SOURCE_TOP_DIR=${SOURCE_DIR}
+#cd src/server/ws/stub \
+#  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
+#  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
 
-cd src/server/ws/stub \
-  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
-  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
+#cd $SOURCE_DIR
 
-cd $SOURCE_DIR
+#cd src/server/ws/cag \
+#  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
+#  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
 
-cd src/server/ws/cag \
-  && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
-  && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
-
-cd $SOURCE_DIR
-
+cd $SOURCE_TOP_DIR
 cd src/server/ws/cag_test \
   && wsdl2h -o CAGAccessService.h CAGAccessService.wsdl \
   && soapcpp2 -i -I../gsoap_inc/import CAGAccessService.h
 
-cd $SOURCRE_DIR
+cd $SOURCE_TOP_DIR
 
 mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && cd $BUILD_DIR/$BUILD_TYPE \

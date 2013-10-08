@@ -1,6 +1,0 @@
-digraph GG {
-node [
-  fontsize = "12"
-];
-    "node37" [ label="bug123" shape="house"];
-}

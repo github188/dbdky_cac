@@ -10,20 +10,24 @@
 #include <sstream>
 #include "tinyxml.h"
 
+#if 0
 #include "ws/stub/soapCAGWebServicePortSoapProxy.h"
 #include "ws/stub/CAGWebServicePortSoap.nsmap"
-
+#else
+#include "ws/cag_test/soapCAGAccessServiceHttpBindingProxy.h"
+#include "ws/cag_test/CAGAccessServiceHttpBinding.nsmap"
+#endif
 namespace dbdky
 {
 namespace detail
 {
+#if 0
     string upLoadCACData(const string& msg)
     {
         CAGWebServicePortSoapProxy service;
-      
         _ns1__upLoadCACData param;
         _ns1__upLoadCACDataResponse response;
- 
+
         param.sXml = new std::string(msg);
         
         if (service.upLoadCACData(&param, &response) == SOAP_OK)
@@ -44,7 +48,35 @@ namespace detail
 
         service.destroy();
     }
+#else
+string upLoadCACData(const string& msg)
+    {
+        CAGAccessServiceHttpBindingProxy service;
+        _ns1__uploadCACData param;
+        _ns1__uploadCACDataResponse response;
 
+        param.in0 = new std::string(msg);
+        
+        if (service.uploadCACData(&param, &response) == SOAP_OK)
+        {
+            LOG_INFO << "SOAP_OK: upLoadCACData response: " << *(response.out);
+            if (NULL == response.out)
+            {
+                return string("");
+            }
+
+            return *(response.out);
+        }
+        else
+        {
+            service.soap_stream_fault(std::cerr);
+            return string("");
+        }
+
+        service.destroy();
+    }
+
+#endif
     bool validateResponse(const string& res)
     {
         TiXmlDocument doc;

@@ -1,8 +1,0 @@
-digraph GG {
-node [
-  fontsize = "12"
-];
-    "node4" [ label="ws_interface" shape="diamond"];
-    "node3" [ label="cac_server" shape="house"];
-    "node3" -> "node4" // ws_interface -> cac_server
-}

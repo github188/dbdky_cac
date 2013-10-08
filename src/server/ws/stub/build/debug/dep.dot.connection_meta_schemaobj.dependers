@@ -1,6 +1,0 @@
-digraph GG {
-node [
-  fontsize = "12"
-];
-    "node10" [ label="connection_meta_schemaobj" shape="house"];
-}

@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../lib/libdbhelper.a  CMakeFiles/dbhelper.dir/dbhelper.cpp.o
-/usr/bin/ranlib ../../lib/libdbhelper.a

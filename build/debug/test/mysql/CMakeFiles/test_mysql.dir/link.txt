@@ -1,1 +1,0 @@
-/usr/bin/c++   -O0 -g -DTIXML_USE_STL    CMakeFiles/test_mysql.dir/main.cpp.o  -o ../../bin/test_mysql -rdynamic -L/usr/lib/mysql ../../lib/libmysqlcppconn.so.7.1.1.3 -lmysqlclient_r -lpthread -lz -lm -lrt -ldl -Wl,-rpath,/usr/lib/mysql:/home/kevin/workspace/dbdky_cac/build/debug/lib: 

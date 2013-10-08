@@ -1,1 +1,0 @@
-/usr/bin/c++   -O0 -g -DTIXML_USE_STL    CMakeFiles/test_time.dir/time.cpp.o CMakeFiles/test_time.dir/main.cpp.o  -o ../../bin/test_time -rdynamic ../../lib/libutils.a ../../lib/libport.a -lpthread -lrt 
