@@ -11,3 +11,21 @@
 *.lai
 *.la
 *.a
+
+#Web Service Things
+src/server/ws/cag/*.xml
+src/server/ws/cag/*.h
+src/server/ws/cag/*.cpp
+src/server/ws/cag/*.nsmap
+
+#Web Service Things
+src/server/ws/cag_test/*.xml
+src/server/ws/cag_test/*.h
+src/server/ws/cag_test/*.cpp
+src/server/ws/cag_test/*.nsmap
+
+#Web Service Things
+src/server/ws/stub/*.xml
+src/server/ws/stub/*.h
+src/server/ws/stub/*.cpp
+src/server/ws/stub/*.nsmap

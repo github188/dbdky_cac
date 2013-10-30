@@ -260,11 +260,11 @@ void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
     while(inside)
     {
         itemElement = inside->ToElement();
-        if (!itemElement)
-        {
-            inside = itemElement->NextSibling();
-            continue;
-        }
+        //if (!itemElement)
+        //{
+        //    inside = itemElement->NextSibling();
+        //    continue;
+        //}
 
         string iName = itemElement->Attribute("name");
         string iValue = itemElement->Attribute("value");

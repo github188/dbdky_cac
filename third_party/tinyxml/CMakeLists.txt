@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wno-dormat -g -DTIXML_USE_STL -DDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wno-format -g -DTIXML_USE_STL -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wno-unknown-programs -Wno-format -O3 -DTIXML_USE_STL")
 
 set(tinyxml_lib_SRCS

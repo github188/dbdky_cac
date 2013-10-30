@@ -68,7 +68,7 @@ namespace cac_client
 
         {
             MutexLockGuard lock(mutexTimestamp_);
-            tmpTs = updateTimestamp_;
+            updateTimestamp_ = tmpTs;
         }
  
         string sTs;
@@ -162,9 +162,10 @@ namespace cac_client
             LOG_ERROR << e.what();
         }
 
+        sTmp += sTmp1;
         sTmp += "</sensors></request>";
 
-        sTmp += sTmp1;
+        //sTmp += sTmp1;
          
         //TODO:
         //connect();
