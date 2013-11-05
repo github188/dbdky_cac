@@ -8,11 +8,13 @@
 
 #include "tinyxml.h"
 
-using namespace dbdky;
-using namespace dbdky::port;
 
-static const string confFileName = "cac_client.conf";
+static const string confFileName = "cma_conf.conf";
 
+namespace dbdky
+{
+namespace port
+{
 boost::shared_ptr<ConfUtil> ConfUtil::instance_;
 boost::shared_ptr<ConfUtil> ConfUtil::getInstance()
 {
@@ -32,7 +34,7 @@ ConfUtil::ConfUtil()
     dbUser_(DEFAULT_DBUSER),
     dbPasswd_(DEFAULT_DBPASSWD),
     dbName_(DEFAULT_DBNAME),
-    cacid_(DEFAULT_CACID),
+    cmaid_(DEFAULT_CMAID),
     localIP_(DEFAULT_LOCALIP),
     proxyIP_(DEFAULT_PROXYIP),
     proxyPort_(DEFAULT_PORT),
@@ -40,12 +42,6 @@ ConfUtil::ConfUtil()
 {
     updateConfigs();
     dumpConfigs();
-}
-
-InetAddress& ConfUtil::getProxyAddress() const
-{
-    InetAddress proxyAddress(1000);
-    return proxyAddress;
 }
 
 uint16_t ConfUtil::getSystemTick() const
@@ -182,9 +178,9 @@ void ConfUtil::updateConfigs()
         {
             dbName_ = itemValue;
         }
-        else if ("cacid" == itemName)
+        else if ("cmaid" == itemName)
         {
-            cacid_ = itemValue;
+            cmaid_ = itemValue;
         }
         else if ("last_upload" == itemName)
         {
@@ -221,7 +217,7 @@ void ConfUtil::dumpConfigs() const
     LOG_INFO << "dbUser: " << dbUser_;
     LOG_INFO << "dbPasswd: " << dbPasswd_;
     LOG_INFO << "dbName: " << dbName_;
-    LOG_INFO << "cacid: " << cacid_;
+    LOG_INFO << "cmaid: " << cmaid_;
     LOG_INFO << "localIP: " << localIP_;
     LOG_INFO << "proxyIP: " << proxyIP_;
     LOG_INFO << "proxyPort: " << proxyPort_;
@@ -233,6 +229,7 @@ void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
 {
     //TODO:
     LOG_INFO << "========" << itemName << "     " << itemValue;
+    LOG_INFO << "confFileName:" << confFileName;
     TiXmlDocument doc(confFileName);
     TiXmlNode* node = NULL;
     TiXmlNode* inside = NULL;
@@ -260,11 +257,12 @@ void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
     while(inside)
     {
         itemElement = inside->ToElement();
-        //if (!itemElement)
-        //{
-        //    inside = itemElement->NextSibling();
-        //    continue;
-        //}
+     //   if (!itemElement)
+       // if (itemElement)
+       // {
+       //     inside = itemElement->NextSibling();
+       //     continue;
+       // }
 
         string iName = itemElement->Attribute("name");
         string iValue = itemElement->Attribute("value");
@@ -282,4 +280,6 @@ void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
     }
 
     doc.SaveFile();
+}
+}
 }
