@@ -234,8 +234,6 @@ namespace cac_client
                         + " where cdid = " + sObjid
                         + " and AcquisitionTime > " + "'" + Timestamp(tmpTs).toFormattedStringDash() + "';";
      
-                LOG_INFO << "::::::::::" << sQuery; 
-
                 if (!dbhelper_->isConnected())
                 {
                     dbhelper_->connect();

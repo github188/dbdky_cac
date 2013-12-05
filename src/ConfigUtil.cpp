@@ -9,7 +9,7 @@
 #include "tinyxml.h"
 
 
-static const string confFileName = "cma_conf.conf";
+static const string confFileName = "cac_conf.conf";
 
 namespace dbdky
 {
@@ -34,7 +34,7 @@ ConfUtil::ConfUtil()
     dbUser_(DEFAULT_DBUSER),
     dbPasswd_(DEFAULT_DBPASSWD),
     dbName_(DEFAULT_DBNAME),
-    cmaid_(DEFAULT_CMAID),
+    cacid_(DEFAULT_CACID),
     localIP_(DEFAULT_LOCALIP),
     proxyIP_(DEFAULT_PROXYIP),
     proxyPort_(DEFAULT_PORT),
@@ -79,6 +79,7 @@ void ConfUtil::updateConfigs()
     if ((NULL == node) || !(element = node->ToElement()))
     {
         LOG_ERROR << "Parse config file error.";
+        doc.SaveFile();
         return;
     }
 
@@ -178,9 +179,9 @@ void ConfUtil::updateConfigs()
         {
             dbName_ = itemValue;
         }
-        else if ("cmaid" == itemName)
+        else if ("cacid" == itemName)
         {
-            cmaid_ = itemValue;
+            cacid_ = itemValue;
         }
         else if ("last_upload" == itemName)
         {
@@ -205,6 +206,8 @@ void ConfUtil::updateConfigs()
 
         inside = tmpElement->NextSibling();
     }
+
+    doc.SaveFile();
 }
 
 void ConfUtil::dumpConfigs() const
@@ -217,7 +220,7 @@ void ConfUtil::dumpConfigs() const
     LOG_INFO << "dbUser: " << dbUser_;
     LOG_INFO << "dbPasswd: " << dbPasswd_;
     LOG_INFO << "dbName: " << dbName_;
-    LOG_INFO << "cmaid: " << cmaid_;
+    LOG_INFO << "cacid: " << cacid_;
     LOG_INFO << "localIP: " << localIP_;
     LOG_INFO << "proxyIP: " << proxyIP_;
     LOG_INFO << "proxyPort: " << proxyPort_;
@@ -240,7 +243,6 @@ void ConfUtil::saveItem2File(const string& itemName, const string& itemValue)
     
     if (doc.Error() && doc.ErrorId() == TiXmlBase::TIXML_ERROR_OPENING_FILE)
     {
-        LOG_ERROR << "ERROR";
         return;
     }
  
